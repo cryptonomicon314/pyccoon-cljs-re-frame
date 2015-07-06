@@ -22,5 +22,5 @@ language-specific:
                 method: local
                 # Relative to the directory on which
                 # `pyccoon` is called.
-                path: src/re_frame
+                path: /pyccoon-cljs-re-frame/src/re_frame
                 extension: cljs
