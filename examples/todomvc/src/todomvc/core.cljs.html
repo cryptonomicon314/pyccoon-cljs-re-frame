@@ -20,7 +20,7 @@
     <a class="btn" class="source source-1" href="#top">Back to top</a>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 19:59</code>
+        <code>2015-07-06 20:04</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -49,7 +49,7 @@
   <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">secretary.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">defroute</span><span class="p">]])</span>
   <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">goog.events</span> <span class="ss">:as</span> <span class="nv">events</span><span class="p">]</span>
             <span class="p">[</span><span class="nv">reagent.core</span> <span class="ss">:as</span> <span class="nv">reagent</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">atom</a></span><span class="p">]]</span>
-            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span><span class="p">]]</span>
             <span class="p">[</span><span class="nv">secretary.core</span> <span class="ss">:as</span> <span class="nv">secretary</span><span class="p">]</span>
             <span class="p">[</span><span class="nv">todomvc.handlers</span><span class="p">]</span>
             <span class="p">[</span><span class="nv">todomvc.subs</span><span class="p">]</span>
@@ -73,7 +73,7 @@
           <p>-- Routes and History ------------------------------------------------------</p>
         </div>
         <div class='code'>
-          <a id="_"/"" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">defroute</span> <span class="s">"/"</span> <span class="p">[]</span> <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:set-showing</span> <span class="ss">:all</span><span class="p">]))</span></pre></div>
+          <a id="_"/"" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">defroute</span> <span class="s">"/"</span> <span class="p">[]</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:set-showing</span> <span class="ss">:all</span><span class="p">]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -88,7 +88,7 @@
           
         </div>
         <div class='code'>
-          <a id="_"/:filter"" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">defroute</span> <span class="s">"/:filter"</span> <span class="p">[</span><span class="nv">filter</span><span class="p">]</span> <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:set-showing</span> <span class="p">(</span><span class="nb">keyword </span><span class="nv">filter</span><span class="p">)]))</span></pre></div>
+          <a id="_"/:filter"" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">defroute</span> <span class="s">"/:filter"</span> <span class="p">[</span><span class="nv">filter</span><span class="p">]</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:set-showing</span> <span class="p">(</span><span class="nb">keyword </span><span class="nv">filter</span><span class="p">)]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -124,7 +124,7 @@
         <div class='code'>
           <a id="_main" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="o">^</span><span class="ss">:export</span> <span class="nv"><a class="hidden" href="#_main">main</a></span>
   <span class="p">[]</span>
-  <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span> <span class="p">[</span><span class="ss">:initialise-db</span><span class="p">])</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span> <span class="p">[</span><span class="ss">:initialise-db</span><span class="p">])</span>
   <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_render">reagent/render</a></span> <span class="p">[</span><span class="nv">todomvc.views/todo-app</span><span class="p">]</span>
                   <span class="p">(</span><span class="nf">.getElementById</span> <span class="nv">js/document</span> <span class="s">"app"</span><span class="p">)))</span>
 

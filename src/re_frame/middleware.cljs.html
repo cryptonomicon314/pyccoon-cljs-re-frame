@@ -30,7 +30,7 @@
     </div>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 19:59</code>
+        <code>2015-07-06 20:04</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -73,8 +73,8 @@
           <a id="_re-frame.middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.middleware">re-frame.middleware</a></span>
   <span class="p">(</span><span class="ss">:require</span>
     <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_IReactiveAtom">IReactiveAtom</a></span><span class="p">]]</span>
-    <span class="p">[</span><span class="nv">re-frame.undo</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/undo.cljs.html#_store-now!">store-now!</a></span><span class="p">]]</span>
-    <span class="p">[</span><span class="nv">re-frame.utils</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_log">log</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_group">group</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_groupEnd">groupEnd</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.undo</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/undo.cljs.html#_store-now!">store-now!</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.utils</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_log">log</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_group">group</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_groupEnd">groupEnd</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]</span>
     <span class="p">[</span><span class="nv">clojure.data</span>   <span class="ss">:as</span> <span class="nv">data</span><span class="p">]))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -125,8 +125,8 @@ is to use the low level registration function
     <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nf">satisfies?</span> <span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_IReactiveAtom">IReactiveAtom</a></span> <span class="nv">app-db</span><span class="p">))</span>
       <span class="p">(</span><span class="nf">do</span>
         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">map? </span><span class="nv">app-db</span><span class="p">)</span>
-          <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: Looks like \"pure\" is in the middleware pipeline twice. Ignoring."</span><span class="p">)</span>
-          <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: \"pure\" middleware not given a Ratom.  Got: "</span> <span class="nv">app-db</span><span class="p">))</span></pre></div>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: Looks like \"pure\" is in the middleware pipeline twice. Ignoring."</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: \"pure\" middleware not given a Ratom.  Got: "</span> <span class="nv">app-db</span><span class="p">))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -159,7 +159,7 @@ is to use the low level registration function
           <div class="highlight"><pre>      <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">db</span>      <span class="o">@</span><span class="nv">app-db</span>
             <span class="nv">new-db</span>  <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">event-vec</span><span class="p">)]</span>
         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">new-db</span><span class="p">)</span>
-          <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: your pure handler returned nil. It should return the new db state."</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: your pure handler returned nil. It should return the new db state."</span><span class="p">)</span>
           <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nb">identical? </span><span class="nv">db</span> <span class="nv">new-db</span><span class="p">)</span>
             <span class="p">(</span><span class="nf">reset!</span> <span class="nv">app-db</span> <span class="nv">new-db</span><span class="p">)))))))</span></pre></div>
         </div>
@@ -187,7 +187,7 @@ machine has done its work.</p>
   <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
   <span class="p">(</span><span class="k">fn </span><span class="nv">log-ex-handler</span>
     <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
-    <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: use of \"log-ex\" is deprecated. You don't need it any more IF YOU ARE USING CHROME 44. Chrome now seems to now produce good stack traces."</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: use of \"log-ex\" is deprecated. You don't need it any more IF YOU ARE USING CHROME 44. Chrome now seems to now produce good stack traces."</span><span class="p">)</span>
     <span class="p">(</span><span class="nf">try</span>
       <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">v</span><span class="p">)</span>
       <span class="p">(</span><span class="nf">catch</span> <span class="ss">:default</span> <span class="nv">e</span>     <span class="c1">;; ooops, handler threw</span>
@@ -305,7 +305,7 @@ Usage:</p>
     <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
     <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb"><a class="hidden" href="#_path">path </a></span>  <span class="p">(</span><span class="nf">flatten</span> <span class="nv">args</span><span class="p">)</span>
           <span class="nv">_</span>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">empty?</span> <span class="nv"><a class="hidden" href="#_path">path</a></span><span class="p">)</span>
-                   <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"path\" middleware given no params."</span><span class="p">))]</span>
+                   <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"path\" middleware given no params."</span><span class="p">))]</span>
       <span class="p">(</span><span class="k">fn </span><span class="nv">path-middleware</span>
         <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
         <span class="p">(</span><span class="k">fn </span><span class="nv">path-handler</span>
@@ -345,8 +345,8 @@ function then must be:</p>
                             <span class="p">(</span><span class="nf">fn?</span> <span class="nv">explanation</span><span class="p">)</span>     <span class="p">(</span><span class="nf">explanation</span> <span class="nv">db</span> <span class="nv">event-vec</span><span class="p">)</span>
                             <span class="p">(</span><span class="nb">string? </span><span class="nv">explanation</span><span class="p">)</span> <span class="nv">explanation</span>
                             <span class="p">(</span><span class="nb">nil? </span><span class="nv">explanation</span><span class="p">)</span>    <span class="s">""</span>
-                            <span class="ss">:else</span> <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"undoable\" middleware given a bad parameter. Got: "</span> <span class="nv">explanation</span><span class="p">))]</span>
-          <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/undo.cljs.html#_store-now!">store-now!</a></span> <span class="nv">explanation</span><span class="p">)</span>
+                            <span class="ss">:else</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"undoable\" middleware given a bad parameter. Got: "</span> <span class="nv">explanation</span><span class="p">))]</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/undo.cljs.html#_store-now!">store-now!</a></span> <span class="nv">explanation</span><span class="p">)</span>
           <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">event-vec</span><span class="p">))))))</span></pre></div>
         </div>
         <div class='clearall'></div>
