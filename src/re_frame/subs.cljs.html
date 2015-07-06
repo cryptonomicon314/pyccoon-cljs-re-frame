@@ -20,7 +20,7 @@
     <a class="btn" class="source source-1" href="#top">Back to top</a>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 19:27</code>
+        <code>2015-07-06 19:54</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -48,8 +48,8 @@
           <a id="_re-frame.subs" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.subs">re-frame.subs</a></span>
  <span class="p">(</span><span class="ss">:require</span>
    <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_make-reaction">make-reaction</a></span><span class="p">]]</span>
-   <span class="p">[</span><span class="nv">re-frame.db</span>    <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
-   <span class="p">[</span><span class="nv">re-frame.utils</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]))</span></pre></div>
+   <span class="p">[</span><span class="nv">re-frame.db</span>    <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
+   <span class="p">[</span><span class="nv">re-frame.utils</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -101,7 +101,7 @@
 
   <span class="p">[</span><span class="nv">key-v</span> <span class="nv">handler-fn</span><span class="p">]</span>
   <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">contains? </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="nv">key-v</span><span class="p">)</span>
-    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: overwriting subscription-handler for: "</span> <span class="nv">key-v</span><span class="p">))</span>   <span class="c1">;; allow it, but warn.</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: overwriting subscription-handler for: "</span> <span class="nv">key-v</span><span class="p">))</span>   <span class="c1">;; allow it, but warn.</span>
   <span class="p">(</span><span class="nf">swap!</span> <span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="nb">assoc </span><span class="nv">key-v</span> <span class="nv">handler-fn</span><span class="p">))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -120,11 +120,11 @@
           <a id="_subscribe" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_subscribe">subscribe</a></span>
 
   <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">key-v</span>       <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv">v</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">key-v</span>       <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv">v</span><span class="p">)</span>
         <span class="nv">handler-fn</span>  <span class="p">(</span><span class="nb">get </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="nv">key-v</span><span class="p">)]</span>
     <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">handler-fn</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: no subscription handler registered for: \""</span> <span class="nv">key-v</span> <span class="s">"\".  Returning a nil subscription."</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">handler-fn</span> <span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv">v</span><span class="p">))))</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: no subscription handler registered for: \""</span> <span class="nv">key-v</span> <span class="s">"\".  Returning a nil subscription."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">handler-fn</span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv">v</span><span class="p">))))</span>
 
 </pre></div>
         </div>

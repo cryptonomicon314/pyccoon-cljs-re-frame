@@ -20,7 +20,7 @@
     <a class="btn" class="source source-1" href="#top">Back to top</a>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 19:27</code>
+        <code>2015-07-06 19:54</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -47,7 +47,7 @@
         <div class='code'>
           <a id="_todomvc.views" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_todomvc.views">todomvc.views</a></span>
   <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">reagent.core</span>  <span class="ss">:as</span> <span class="nv">reagent</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">atom</a></span><span class="p">]]</span>
-            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span><span class="p">]]))</span></pre></div>
+            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="nv"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span><span class="p">]]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -111,7 +111,7 @@
         <div class='code'>
           <a id="_stats-footer" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_stats-footer">stats-footer</a></span>
   <span class="p">[]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">footer-stats</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:footer-stats</span><span class="p">])]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">footer-stats</span> <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:footer-stats</span><span class="p">])]</span>
     <span class="p">(</span><span class="k">fn </span><span class="p">[]</span>
       <span class="p">(</span><span class="k">let </span><span class="p">[[</span><span class="nv">active</span> <span class="nv">done</span> <span class="nv">filter</span><span class="p">]</span> <span class="o">@</span><span class="nv">footer-stats</span>
             <span class="nv">props-for</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">filter-kw</span> <span class="nv">txt</span><span class="p">]</span>
@@ -126,7 +126,7 @@
            <span class="p">[</span><span class="ss">:li</span> <span class="p">(</span><span class="nf">props-for</span> <span class="ss">:active</span> <span class="s">"Active"</span><span class="p">)]</span>
            <span class="p">[</span><span class="ss">:li</span> <span class="p">(</span><span class="nf">props-for</span> <span class="ss">:done</span> <span class="s">"Completed"</span><span class="p">)]]</span>
           <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">pos? </span><span class="nv">done</span><span class="p">)</span>
-            <span class="p">[</span><span class="ss">:button#clear-completed</span> <span class="p">{</span><span class="ss">:on-click</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:clear-completed</span><span class="p">])}</span>
+            <span class="p">[</span><span class="ss">:button#clear-completed</span> <span class="p">{</span><span class="ss">:on-click</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:clear-completed</span><span class="p">])}</span>
              <span class="s">"Clear completed "</span> <span class="nv">done</span><span class="p">])]]))))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -151,13 +151,13 @@
        <span class="p">[</span><span class="ss">:div.view</span>
         <span class="p">[</span><span class="ss">:input.toggle</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">"checkbox"</span>
                         <span class="ss">:checked</span> <span class="nv">done</span>
-                        <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:toggle-done</span> <span class="nv">id</span><span class="p">])}]</span>
+                        <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:toggle-done</span> <span class="nv">id</span><span class="p">])}]</span>
         <span class="p">[</span><span class="ss">:label</span> <span class="p">{</span><span class="ss">:on-double-click</span> <span class="o">#</span><span class="p">(</span><span class="nf">reset!</span> <span class="nv">editing</span> <span class="nv">true</span><span class="p">)}</span> <span class="nv">title</span><span class="p">]</span>
-        <span class="p">[</span><span class="ss">:button.destroy</span> <span class="p">{</span><span class="ss">:on-click</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:delete-todo</span> <span class="nv">id</span><span class="p">])}]]</span>
+        <span class="p">[</span><span class="ss">:button.destroy</span> <span class="p">{</span><span class="ss">:on-click</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:delete-todo</span> <span class="nv">id</span><span class="p">])}]]</span>
        <span class="p">(</span><span class="nb">when </span><span class="o">@</span><span class="nv">editing</span>
          <span class="p">[</span><span class="nv"><a class="hidden" href="#_todo-edit">todo-edit</a></span> <span class="p">{</span><span class="ss">:class</span> <span class="s">"edit"</span>
                      <span class="ss">:title</span> <span class="nv">title</span>
-                     <span class="ss">:on-save</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:save</span> <span class="nv">id</span> <span class="nv">%</span><span class="p">])</span>
+                     <span class="ss">:on-save</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:save</span> <span class="nv">id</span> <span class="nv">%</span><span class="p">])</span>
                      <span class="ss">:on-stop</span> <span class="o">#</span><span class="p">(</span><span class="nf">reset!</span> <span class="nv">editing</span> <span class="nv">false</span><span class="p">)}])])))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -194,9 +194,9 @@
         <div class='code'>
           <a id="_todo-app" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_todo-app">todo-app</a></span>
   <span class="p">[]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">todos</span>           <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:todos</span><span class="p">])</span>
-        <span class="nv">visible-todos</span>   <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:visible-todos</span><span class="p">])</span>
-        <span class="nv">completed-count</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:completed-count</span><span class="p">])]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">todos</span>           <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:todos</span><span class="p">])</span>
+        <span class="nv">visible-todos</span>   <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:visible-todos</span><span class="p">])</span>
+        <span class="nv">completed-count</span> <span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:completed-count</span><span class="p">])]</span>
     <span class="p">(</span><span class="k">fn </span><span class="p">[]</span>
       <span class="p">[</span><span class="ss">:div</span>
        <span class="p">[</span><span class="ss">:section#todoapp</span>
@@ -204,14 +204,14 @@
          <span class="p">[</span><span class="ss">:h1</span> <span class="s">"todos"</span><span class="p">]</span>
          <span class="p">[</span><span class="nv"><a class="hidden" href="#_todo-input">todo-input</a></span> <span class="p">{</span><span class="ss">:id</span> <span class="s">"new-todo"</span>
                       <span class="ss">:placeholder</span> <span class="s">"What needs to be done?"</span>
-                      <span class="ss">:on-save</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:add-todo</span> <span class="nv">%</span><span class="p">])}]]</span>
+                      <span class="ss">:on-save</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:add-todo</span> <span class="nv">%</span><span class="p">])}]]</span>
         <span class="p">(</span><span class="nb">when-not </span><span class="p">(</span><span class="nf">empty?</span> <span class="o">@</span><span class="nv">todos</span><span class="p">)</span>
           <span class="p">[</span><span class="ss">:div</span>
            <span class="p">[</span><span class="ss">:section#main</span>
             <span class="p">[</span><span class="ss">:input#toggle-all</span>
              <span class="p">{</span><span class="ss">:type</span> <span class="s">"checkbox"</span>
               <span class="ss">:checked</span> <span class="p">(</span><span class="nb">pos? </span><span class="o">@</span><span class="nv">completed-count</span><span class="p">)</span>
-              <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:complete-all-toggle</span><span class="p">])}]</span>
+              <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="//pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:complete-all-toggle</span><span class="p">])}]</span>
             <span class="p">[</span><span class="ss">:label</span> <span class="p">{</span><span class="ss">:for</span> <span class="s">"toggle-all"</span><span class="p">}</span> <span class="s">"Mark all as complete"</span><span class="p">]</span>
             <span class="p">[</span><span class="nv"><a class="hidden" href="#_todo-list">todo-list</a></span> <span class="nv">visible-todos</span><span class="p">]]</span>
            <span class="p">[</span><span class="nv"><a class="hidden" href="#_stats-footer">stats-footer</a></span><span class="p">]])]</span>
