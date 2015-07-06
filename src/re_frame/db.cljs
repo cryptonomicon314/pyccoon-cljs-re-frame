@@ -2,8 +2,7 @@
   (:require [reagent.core :as reagent]))
 
 
-;; -- Application State  --------------------------------------------------------------------------
-;;
+;; ## Application State
 ;; Should not be accessed directly by application code
 ;; Read access goes through subscriptions.
 ;; Updates via event handlers.

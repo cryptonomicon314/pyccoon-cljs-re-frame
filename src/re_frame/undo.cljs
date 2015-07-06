@@ -1,3 +1,5 @@
+;; # Undo
+
 (ns re-frame.undo
   (:require-macros [reagent.ratom  :refer [reaction]])
   (:require
@@ -8,19 +10,27 @@
     [re-frame.subs       :as     subs]))
 
 
-;; -- History -------------------------------------------------------------------------------------
+;; ## History 
+
 ;;
-;;
-(def ^:private max-undos "Maximum number of undo states maintained" (atom 50))
+(def ^:private max-undos
+  "Maximum number of undo states maintained"
+  (atom 50))
+
 (defn set-max-undos!
   [n]
   (reset! max-undos n))
 
 
-(def ^:private undo-list "A list of history states" (reagent/atom []))
-(def ^:private redo-list "A list of future states, caused by undoing" (reagent/atom []))
+(def ^:private undo-list
+  "A list of history states"
+  (reagent/atom []))
 
-;; -- Explanations -----------------------------------------------------------
+(def ^:private redo-list
+  "A list of future states, caused by undoing"
+  (reagent/atom []))
+
+;; ## Explanations 
 ;;
 ;; Each undo has an associated explanation which can be displayed to the user.
 ;;
@@ -79,19 +89,20 @@
     (conj @undo-explain-list @app-explain)
     []))
 
-;; -- subscriptions  -----------------------------------------------------------------------------
+;; ## Subscriptions 
 
+;;
 (subs/register
   :undos?
   (fn handler
-    ; "return true if anything is stored in the undo list, otherwise false"
+    ;; Return **true** if anything is stored in the undo list, otherwise **false**.
     [_ _]
     (reaction (undos?))))
 
 (subs/register
   :redos?
   (fn handler
-    ; "return true if anything is stored in the redo list, otherwise false"
+    ;; Return **true** if anything is stored in the redo list, otherwise **false**.
     [_ _]
     (reaction (redos?))))
 
@@ -99,20 +110,20 @@
 (subs/register
   :undo-explanations
   (fn handler
-    ; "return a vector of string explanations ordered oldest to most recent"
+    ;; Returns a vector of string explanations ordered oldest to most recent.
     [_ _]
     (reaction (undo-explanations))))
 
 (subs/register
   :redo-explanations
   (fn handler
-    ; "returns a vector of string explanations ordered from most recent undo onward"
+    ;; Returns a vector of string explanations ordered from most recent undo onward.
     [_ _]
     (reaction (deref redo-explain-list))))
 
-;; -- event handlers  ----------------------------------------------------------------------------
+;; ## Event handlers
 
-
+;;
 (defn- undo
   [undos cur redos]
   (let [u @undos
@@ -129,8 +140,13 @@
     (undo undo-explain-list app-explain redo-explain-list)
     (recur (dec n))))
 
-(handlers/register-base     ;; not a pure handler
-  :undo                     ;; usage:  (dispatch [:undo n])  n is optional, defaults to 1
+;; Not a pure handler. Usage:
+;; ```clojure
+;; (dispatch [:undo n])
+;; ```
+;; *n* is optional, defaults to 1
+(handlers/register-base     
+  :undo                     
   (fn handler
     [_ [_ n]]
     (if-not (undos?)
@@ -154,17 +170,25 @@
     (redo undo-explain-list app-explain redo-explain-list)
     (recur (dec n))))
 
-(handlers/register-base     ;; not a pure handler
-  :redo                     ;; usage:  (dispatch [:redo n])
-  (fn handler               ;; if n absent, defaults to 1
+;; Not a pure handler. Usage:
+;; ```clojure
+;; (dispatch [:redo n])
+;; ```
+;; If *n* absent, defaults to 1
+(handlers/register-base     
+  :redo                     
+  (fn handler               
     [_ [_ n]]
     (if-not (redos?)
       (warn "re-frame: you did a (dispatch [:redo]), but there is nothing to redo.")
       (redo-n (or n 1)))))
 
-
-(handlers/register-base     ;; not a pure handler
-  :purge-redos              ;; usage:  (dispatch [:purge-redo])
+;; Not a pure handler. Usage:
+;; ```clojure
+;; (dispatch [:purge-redo])
+;; ```
+(handlers/register-base     
+  :purge-redos              
   (fn handler
     [_ _]
     (if-not (redos?)

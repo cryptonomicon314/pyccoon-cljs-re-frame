@@ -1,0 +1,26 @@
+project:
+    name: re-frame 0.4.1
+
+files:
+    skip:
+        - docs.*
+        - \.git.*
+        - .*/resources/public/js.*
+    copy: []
+
+documentation:
+    css-path: null
+    custom-html-template: null
+    mathjax: true
+    linebreaking-behavior: normal
+
+language-specific:
+    clojure:
+        namespaces:
+            # Local namespaces
+            re-frame:
+                method: local
+                # Relative to the directory on which
+                # `pyccoon` is called.
+                path: src/re_frame
+                extension: cljs
