@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/core.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-1" href="#core"> Core</a>
+          <a class="source source-2" href="#namespace"> Namespace</a>
+          <a class="source source-2" href="#api"> API</a>
+          <a class="source source-3" href="#alpha---experimental-middleware"> ALPHA - EXPERIMENTAL MIDDLEWARE</a>
+          <a class="source source-2" href="#logging"> Logging </a>
+          <a class="source source-2" href="#convenience-api"> Convenience API </a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="core.cljs.html/../../../index.html">.</a> / <a href="core.cljs.html/../../index.html">src</a> / <a href="core.cljs.html/../index.html">re_frame</a> / core.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h1><a id="core" class="header-anchor" href="#core"> Core</a></h1>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <h2><a id="namespace" class="header-anchor" href="#namespace"> Namespace</a></h2>
+        </div>
+        <div class='code'>
+          <a id="_re-frame.core" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.core">re-frame.core</a></span>
+  <span class="p">(</span><span class="ss">:require</span>
+    <span class="p">[</span><span class="nv">re-frame.handlers</span>   <span class="ss">:as</span> <span class="nv">handlers</span><span class="p">]</span>
+    <span class="p">[</span><span class="nv">re-frame.subs</span>       <span class="ss">:as</span> <span class="nv">subs</span><span class="p">]</span>
+    <span class="p">[</span><span class="nv">re-frame.router</span>     <span class="ss">:as</span> <span class="nv">router</span><span class="p">]</span>
+    <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:as</span> <span class="nv">utils</span><span class="p">]</span>
+    <span class="p">[</span><span class="nv">re-frame.middleware</span> <span class="ss">:as</span> <span class="nv">middleware</span><span class="p">]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <h2><a id="api" class="header-anchor" href="#api"> API</a></h2>
+        </div>
+        <div class='code'>
+          <a id="_dispatch" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_dispatch">dispatch</a></span>         <span class="nv"><a class="hidden" href="/src/re_frame/router.cljs.html#_dispatch">router/dispatch</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_dispatch-sync" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_dispatch-sync">dispatch-sync</a></span>    <span class="nv"><a class="hidden" href="/src/re_frame/router.cljs.html#_dispatch-sync">router/dispatch-sync</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_register-sub" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_register-sub">register-sub</a></span>        <span class="nv"><a class="hidden" href="/src/re_frame/subs.cljs.html#_register">subs/register</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_clear-sub-handlers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_clear-sub-handlers!">clear-sub-handlers!</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/subs.cljs.html#_clear-handlers!">subs/clear-handlers!</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_subscribe" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_subscribe">subscribe</a></span>           <span class="nv"><a class="hidden" href="/src/re_frame/subs.cljs.html#_subscribe">subs/subscribe</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_clear-event-handlers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_clear-event-handlers!">clear-event-handlers!</a></span>  <span class="nv"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_clear-handlers!">handlers/clear-handlers!</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_pure" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_pure">pure</a></span>        <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_pure">middleware/pure</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_debug" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_debug">debug</a></span>       <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_debug">middleware/debug</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_undoable" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_undoable">undoable</a></span>    <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_undoable">middleware/undoable</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_path" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nb"><a class="hidden" href="#_path">path </a></span>       <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_path">middleware/path</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-12" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-12'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_enrich" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_enrich">enrich</a></span>      <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_enrich">middleware/enrich</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-13" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-13'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_trim-v" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_trim-v">trim-v</a></span>      <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_trim-v">middleware/trim-v</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-14" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-14'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_after" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_after">after</a></span>       <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_after">middleware/after</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-15" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-15'>#</a>
+          </div>
+          <h3><a id="alpha---experimental-middleware" class="header-anchor" href="#alpha---experimental-middleware"> ALPHA - EXPERIMENTAL MIDDLEWARE</a></h3>
+        </div>
+        <div class='code'>
+          <a id="_log-ex" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_log-ex">log-ex</a></span>      <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_log-ex">middleware/log-ex</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-16" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-16'>#</a>
+          </div>
+          <h2><a id="logging" class="header-anchor" href="#logging"> Logging </a></h2>
+<p>re-frame uses the logging functions: warn, log, error, group and groupEnd
+By default, these functions map directly to the js/console implementations
+But you can override with your own (set or subset):</p>
+<div class="codehilite"><pre>  <span class="p">(</span><span class="nf">set-loggers!</span>  <span class="p">{</span><span class="ss">:warn</span>  <span class="nv">my-warn</span>   <span class="ss">:log</span>  <span class="nv">my-looger</span> <span class="nv">...</span><span class="p">})</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <a id="_on-changes" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_on-changes">on-changes</a></span>  <span class="nv"><a class="hidden" href="/src/re_frame/middleware.cljs.html#_on-changes">middleware/on-changes</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-17" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-17'>#</a>
+          </div>
+          <h2><a id="convenience-api" class="header-anchor" href="#convenience-api"> Convenience API </a></h2>
+        </div>
+        <div class='code'>
+          <a id="_set-loggers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_set-loggers!">set-loggers!</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_set-loggers!">utils/set-loggers!</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-18" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-18'>#</a>
+          </div>
+          <p>Almost 100% of handlers will be pure, so make it easy to
+register with "pure" middleware in the correct (left-hand-side) position.</p>
+        </div>
+        <div class='code'>
+          <a id="_register-handler" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_register-handler">register-handler</a></span>
+  <span class="p">([</span><span class="nv">id</span> <span class="nv">handler</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span> <span class="nv">id</span> <span class="nv"><a class="hidden" href="#_pure">pure</a></span> <span class="nv">handler</span><span class="p">))</span>
+  <span class="p">([</span><span class="nv">id</span> <span class="nv">middleware</span> <span class="nv">handler</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span> <span class="nv">id</span> <span class="p">[</span><span class="nv"><a class="hidden" href="#_pure">pure</a></span> <span class="nv">middleware</span><span class="p">]</span> <span class="nv">handler</span><span class="p">)))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

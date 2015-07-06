@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/handlers.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-1" href="#handlers"> Handlers</a>
+          <a class="source source-2" href="#composing-middleware"> Composing middleware</a>
+          <a class="source source-2" href="#the-register-of-event-handlers"> The register of event handlers</a>
+          <a class="source source-2" href="#lookup-and-call"> Lookup and call</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="handlers.cljs.html/../../../index.html">.</a> / <a href="handlers.cljs.html/../../index.html">src</a> / <a href="handlers.cljs.html/../index.html">re_frame</a> / handlers.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h1><a id="handlers" class="header-anchor" href="#handlers"> Handlers</a></h1>
+        </div>
+        <div class='code'>
+          <a id="_re-frame.handlers" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.handlers">re-frame.handlers</a></span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">re-frame.db</span>         <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <h2><a id="composing-middleware" class="header-anchor" href="#composing-middleware"> Composing middleware</a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>See <a href="https://github.com/Day8/re-frame/issues/65">https://github.com/Day8/re-frame/issues/65</a></p>
+        </div>
+        <div class='code'>
+          <a id="_report-middleware-factories" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_report-middleware-factories">report-middleware-factories</a></span>
+
+  <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">letfn</span> <span class="p">[(</span><span class="nf">name-of-factory</span>
+            <span class="p">[</span><span class="nv">f</span><span class="p">]</span>
+            <span class="p">(</span><span class="nb">-&gt; </span><span class="nv">f</span> <span class="nb">meta </span><span class="ss">:re-frame-factory-name</span><span class="p">))</span>
+          <span class="p">(</span><span class="nf">factory-names-in</span>
+            <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
+            <span class="p">(</span><span class="nb">remove nil? </span><span class="p">(</span><span class="nb">map </span><span class="nv">name-of-factory</span> <span class="nv">v</span><span class="p">)))]</span>
+    <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nb">name </span><span class="p">(</span><span class="nf">factory-names-in</span> <span class="nv">v</span><span class="p">)]</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \""</span> <span class="nb">name </span><span class="s">"\" used incorrectly. Must be used like this \"("</span> <span class="nb">name </span><span class="s">" ...)\", whereas you just used \""</span> <span class="nb">name </span><span class="s">"\"."</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_comp-middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_comp-middleware">comp-middleware</a></span>
+  <span class="s">"</span>
+<span class="s">  Given a vector of middleware, filter out any `nil`s, and use \"comp\" to compose the elements.</span>
+<span class="s">  `v` can have nested vectors, and will be flattened before \"comp\" is applied.</span>
+<span class="s">  For convienience, if `v` is a function (assumed to be middleware already), just return it.</span>
+<span class="s">  Filtering out nils allows us to create Middleware conditionally like this:</span>
+
+<span class="s">  ```clojure</span>
+<span class="s">  ; that 'when' might leave a `nil`</span>
+<span class="s">  (comp-middleware [pure (when debug? debug)])</span>
+<span class="s">  ```</span>
+<span class="s">  "</span> 
+  <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
+
+  <span class="p">(</span><span class="nf">cond</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>Assumed to be existing middleware</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">(</span><span class="nf">fn?</span> <span class="nv">v</span><span class="p">)</span>       <span class="nv">v</span>
+    <span class="p">(</span><span class="nb">vector? </span><span class="nv">v</span><span class="p">)</span>   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">v</span> <span class="p">(</span><span class="nb">remove nil? </span><span class="p">(</span><span class="nf">flatten</span> <span class="nv">v</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          <p>Damn error detection! always messes up the code</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                        <span class="nv">_</span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_report-middleware-factories">report-middleware-factories</a></span> <span class="nv">v</span><span class="p">)]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                    <span class="p">(</span><span class="nf">cond</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          <p>No-op middleware</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                      <span class="p">(</span><span class="nf">empty?</span> <span class="nv">v</span><span class="p">)</span>       <span class="nv">identity</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          <p>Only one middleware, no composing needed</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                      <span class="p">(</span><span class="nb">= </span><span class="mi">1</span> <span class="p">(</span><span class="nb">count </span><span class="nv">v</span><span class="p">))</span>  <span class="p">(</span><span class="nb">first </span><span class="nv">v</span><span class="p">)</span>
+                      <span class="ss">:else</span>            <span class="p">(</span><span class="nb">apply comp </span><span class="nv">v</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="ss">:else</span>         <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: comp-middleware expects a vector, got: "</span> <span class="nv">v</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          <h2><a id="the-register-of-event-handlers" class="header-anchor" href="#the-register-of-event-handlers"> The register of event handlers</a></h2>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="c1">;</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_id->fn" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_id-&gt;fn">id-&gt;fn</a></span>  <span class="p">(</span><span class="nf">atom</span> <span class="p">{}))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-12" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-12'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_lookup-handler" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_lookup-handler">lookup-handler</a></span>
+  <span class="p">[</span><span class="nv">event-id</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">get </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_id-&gt;fn">id-&gt;fn</a></span> <span class="nv">event-id</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-13" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-13'>#</a>
+          </div>
+          <p>Unregister all event handlers </p>
+        </div>
+        <div class='code'>
+          <a id="_clear-handlers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_clear-handlers!">clear-handlers!</a></span>
+
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_id-&gt;fn">id-&gt;fn</a></span> <span class="p">{}))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-14" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-14'>#</a>
+          </div>
+          <p>Register a handler for an event.
+This is low level and it is expected that <strong>re-frame.core/register-handler</strong> would
+generally be used.</p>
+        </div>
+        <div class='code'>
+          <a id="_register-base" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_register-base">register-base</a></span>
+
+  <span class="p">([</span><span class="nv">event-id</span> <span class="nv">handler-fn</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">contains? </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_id-&gt;fn">id-&gt;fn</a></span> <span class="nv">event-id</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-15" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-15'>#</a>
+          </div>
+          <p>Allow it, but warn.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: overwriting an event-handler for: "</span> <span class="nv">event-id</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-16" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-16'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">(</span><span class="nf">swap!</span> <span class="nv"><a class="hidden" href="#_id-&gt;fn">id-&gt;fn</a></span> <span class="nb">assoc </span><span class="nv">event-id</span> <span class="nv">handler-fn</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-17" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-17'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>  <span class="p">([</span><span class="nv">event-id</span> <span class="nv">middleware</span> <span class="nv">handler-fn</span><span class="p">]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-18" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-18'>#</a>
+          </div>
+          <p>Wrap the handler in the middleware</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">(</span><span class="k">let </span> <span class="p">[</span><span class="nv">mid-ware</span>    <span class="p">(</span><span class="nf"><a class="hidden" href="#_comp-middleware">comp-middleware</a></span> <span class="nv">middleware</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-19" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-19'>#</a>
+          </div>
+          <p>Wrap the handler in the middleware</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>           <span class="nv">midware+hfn</span> <span class="p">(</span><span class="nf">mid-ware</span> <span class="nv">handler-fn</span><span class="p">)]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-20" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-20'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>      <span class="p">(</span><span class="nf"><a class="hidden" href="#_register-base">register-base</a></span> <span class="nv">event-id</span> <span class="nv">midware+hfn</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-21" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-21'>#</a>
+          </div>
+          <h2><a id="lookup-and-call" class="header-anchor" href="#lookup-and-call"> Lookup and call</a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-22" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-22'>#</a>
+          </div>
+          <p>Remember what event we are currently handling</p>
+        </div>
+        <div class='code'>
+          <a id="_*handling*" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:dynamic</span> <span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span> <span class="nv">nil</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-23" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-23'>#</a>
+          </div>
+          <p>Given an event vector, look up the handler, then call it.
+By default, handlers are not assumed to be pure. They are called with
+two paramters:</p>
+<ul>
+<li>the <code>app-db</code> atom</li>
+<li>the event vector</li>
+</ul>
+<p>The handler is assumed to side-effect on <code>app-db</code> - the return value is ignored.
+To write a pure handler, use the <code>pure</code> middleware when registering the handler.</p>
+        </div>
+        <div class='code'>
+          <a id="_handle" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_handle">handle</a></span>
+
+  <span class="p">[</span><span class="nv">event-v</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">event-id</span>    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv">event-v</span><span class="p">)</span>
+        <span class="nv">handler-fn</span>  <span class="p">(</span><span class="nf"><a class="hidden" href="#_lookup-handler">lookup-handler</a></span> <span class="nv">event-id</span><span class="p">)]</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">handler-fn</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: no event handler registered for: \""</span> <span class="nv">event-id</span> <span class="s">"\". Ignoring."</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">if </span> <span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>
+        <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: while handling \""</span>  <span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>  <span class="s">"\"  dispatch-sync was called for \""</span> <span class="nv">event-v</span> <span class="s">"\". You can't call dispatch-sync in an event handler."</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">binding </span><span class="p">[</span><span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>  <span class="nv">event-v</span><span class="p">]</span>
+          <span class="p">(</span><span class="nf">handler-fn</span> <span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv">event-v</span><span class="p">))))))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

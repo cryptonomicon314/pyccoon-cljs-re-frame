@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: CHANGES.md</title>
+  <link rel="stylesheet" href="./pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' class="documentation">
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="./index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-2" href="#v0.4.1-(2015-05-29)"> v0.4.1 (2015-05-29)</a>
+          <a class="source source-2" href="#v0.4.0--(2015-05-04)"> v0.4.0  (2015-05-04)</a>
+          <a class="source source-2" href="#v0.3.2--(2015-04-21)"> v0.3.2  (2015-04-21)</a>
+          <a class="source source-2" href="#v0.3.1--(2015-04-18)"> v0.3.1  (2015-04-18)</a>
+          <a class="source source-2" href="#v0.3.0--(2015-04-15)"> v0.3.0  (2015-04-15)</a>
+          <a class="source source-3" href="#headline"> Headline</a>
+          <a class="source source-3" href="#other"> Other</a>
+          <a class="source source-2" href="#v0.2.0--(2015-03-06)"> v0.2.0  (2015-03-06)</a>
+          <a class="source source-3" href="#breaking"> Breaking</a>
+          <a class="source source-3" href="#headline"> Headline</a>
+          <a class="source source-3" href="#other:"> Other:</a>
+          <a class="source source-3" href="#details-on-undo-changes"> Details On Undo Changes</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="./pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="CHANGES.md.html/../index.html">.</a> / CHANGES.md</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h2><a id="v0.4.1-(2015-05-29)" class="header-anchor" href="#v0.4.1-(2015-05-29)"> v0.4.1 (2015-05-29)</a></h2>
+<p>Improvements:
+  - fix #65 - Detect mistaken use of middleware factories
+  - <code>examples/</code> now work with figwheel</p>
+<h2><a id="v0.4.0--(2015-05-04)" class="header-anchor" href="#v0.4.0--(2015-05-04)"> v0.4.0  (2015-05-04)</a></h2>
+<p>Headline:
+  - Exceptions in event handlers no longer break the router loop. 
+    Previously, any exception in an event handler broke the app
+    permanently. This change will:
+      - improve the debugging experience with figwheel 
+      - mean apps, in production, stand a chance of reporting UHE
+        to the user, and can perhaps even recover to a sane state.
+  - #53 Fix Logging And Error Reporting
+    You can now provide your own logging fucntions. 
+    Further explanation <a href="https://github.com/Day8/re-frame/wiki/FAQ#3-can-re-frame-use-my-logging-functions">here</a>.</p>
+<p>Deprecated:
+  - <code>log-ex</code> middleware is no longer needed.  Simply remove its use. 
+    Sometime in the last couple of months, changes to the CLJS
+    runtime meant that useful exceptions could escape go-loops, and
+    good stack traces appear (at least in Chrome). </p>
+<p>New Features:
+  - #52 Add a way to purge redos   <code>(dispatch [:purge-redos])</code>
+    When trying to recover from an UHE, do an undo to get back to the 
+    last sane state, and then use this new feature to purge the 
+    just-generated-redo.<br />
+  - #43 Add ability to clear handlers (event and subs) via 
+    two new API functions:
+      - re-frame.core/clear-sub-handlers!
+      - re-frame.core/clear-event-handlers!
+    Useful for those using the <a href="https://github.com/quile/component-cljs">ClojureScript fork</a> of <a href="https://github.com/stuartsierra/component">Component</a>.</p>
+<p>Experimental:
+  - #50 Add "reaction-like" middleware called <code>on-changes</code>.</p>
+<p>Other:
+  - improve some comments in todomvc example</p>
+<h2><a id="v0.3.2--(2015-04-21)" class="header-anchor" href="#v0.3.2--(2015-04-21)"> v0.3.2  (2015-04-21)</a></h2>
+<p>Improvements:
+  - Fix #42 - Put in checks for dispatch-sync
+  - Fix #49 - add table of content and link to wiki for middleware
+  - Fix #46 - Minor typos fixed</p>
+<h2><a id="v0.3.1--(2015-04-18)" class="header-anchor" href="#v0.3.1--(2015-04-18)"> v0.3.1  (2015-04-18)</a></h2>
+<p>Various small improvements and bug fixes:</p>
+<ul>
+<li>log-ex middleware added to core api (it was a mistake that it was missing)</li>
+<li>modest improves to simple example. Better comments, layout, etc.</li>
+<li>the anonymous functions in standard middleware now have meaningful
+    names, which makes stack traces easier to understand.</li>
+<li>
+<h1>24 - Fix missing paren in README</h1>
+</li>
+<li>
+<h1>31 - Fix list formatting in README</h1>
+</li>
+<li>
+<h1>32 - fix a broken wiki link</h1>
+</li>
+<li>
+<h1>30 - Fix up the enrich docstring</h1>
+</li>
+</ul>
+<h2><a id="v0.3.0--(2015-04-15)" class="header-anchor" href="#v0.3.0--(2015-04-15)"> v0.3.0  (2015-04-15)</a></h2>
+<h3><a id="headline" class="header-anchor" href="#headline"> Headline</a></h3>
+<ul>
+<li>the middleware <code>after</code> and <code>enrich</code> now call the supplied function <code>f</code> with
+    both <code>db</code> and <code>v</code> (previously just <code>db</code>). Because javascript is so forgiving
+    about function arity, this change is backwards compatible.</li>
+<li>new event handler middleware <code>log-ex</code> for correctly printing handler stacktraces.
+    See <a href="https://github.com/Day8/re-frame/wiki/Debugging-Event-Handlers#1-an-exception-is-thrown">explanation</a>.</li>
+<li>ongoing improvements to the docs in Wiki</li>
+</ul>
+<h3><a id="other" class="header-anchor" href="#other"> Other</a></h3>
+<ul>
+<li>move to reagent v0.5.0</li>
+<li>fix undo bug which could result in incorrect explanations.</li>
+<li>improve todomvc's use of localstorage</li>
+<li>experimental work with slimmer.js for testing</li>
+<li>correct README wiki links</li>
+<li>license.txt was incorrectly named previously</li>
+</ul>
+<h2><a id="v0.2.0--(2015-03-06)" class="header-anchor" href="#v0.2.0--(2015-03-06)"> v0.2.0  (2015-03-06)</a></h2>
+<h3><a id="breaking" class="header-anchor" href="#breaking"> Breaking</a></h3>
+<p>Renames:
+  - <code>register-pure-handler</code> renamed to <code>register-handler</code>  (and existing low level <code>register-handler</code> becomes <code>register-handler-base</code> but is not a part of the API).
+  - remove <code>apply-event</code> middleware and replace with similar <code>trim-v</code>
+  - rename <code>register-subs</code> to <code>register-sub</code>  (avoid confusion over possible plurals)
+  - rename <code>set-max-undos</code>  to <code>set-max-undos!</code></p>
+<p>Changes:
+  - <code>undoable</code> middleware is now a factory. Where before you used this <code>undoable</code>,
+     you must now use this <code>(undoable "some explanation")</code>.  See further below.</p>
+<h3><a id="headline" class="header-anchor" href="#headline"> Headline</a></h3>
+<ul>
+<li>exceptions in handler now reported more sanely via console.error.
+    (core.async really messes with a good stack)</li>
+<li>example <code>todomvc</code> available in examples folder.</li>
+<li>Wiki documentation is now more substantial.</li>
+<li>introduce new handler middleware: <code>debug</code>, <code>enrich</code> and <code>after</code></li>
+</ul>
+<h3><a id="other:" class="header-anchor" href="#other:"> Other:</a></h3>
+<ul>
+<li>exceptions in a go loop are a special type of hell.  Improve the reporting of exceptions happening in event handlers.</li>
+<li>allow Middleware to be registered as a vector.  data &gt; functions &gt; macros</li>
+<li>fix two bugs in undo implementation</li>
+<li>name licence file correctly, thanks to @smith</li>
+<li>fix typo in readme, thanks to @btheado</li>
+<li>Readme now admits to 200 lines of code, not 100.</li>
+<li>dispatch now explicitly returns nil</li>
+<li>travis integration (not that we have any tests currently)</li>
+</ul>
+<h3><a id="details-on-undo-changes" class="header-anchor" href="#details-on-undo-changes"> Details On Undo Changes</a></h3>
+<p>The undo/redo feature built into re-frame is now more functional
+(at the cost of a breaking change).</p>
+<p>There is now an explanation associated with each undo state describing
+modification. This allows an app to inform the user what actions
+they will be undoing or redoing.</p>
+<p>Previously <code>undoable</code> was simply middleware, but it is now a middleware factory.</p>
+<p>Essentially, that means you can't use it "plain" anymore, and instead you must
+call it, like this <code>(undoable "Some explanation")</code></p>
+<p>The <code>explanation</code> provided to undoable must be either a <code>string</code> (static
+explanation) or a function  <code>(db event) -&gt; string</code>, allowing you to customize
+the undo message based on details of the event.</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/router.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-1" href="#router"> Router</a>
+          <a class="source source-2" href="#namespace"> Namespace</a>
+          <a class="source source-2" href="#the-event-conveyor-belt"> The Event Conveyor Belt</a>
+          <a class="source source-2" href="#router-loop"> Router loop</a>
+          <a class="source source-2" href="#dispatch"> Dispatch</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="router.cljs.html/../../../index.html">.</a> / <a href="router.cljs.html/../../index.html">src</a> / <a href="router.cljs.html/../index.html">re_frame</a> / router.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h1><a id="router" class="header-anchor" href="#router"> Router</a></h1>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <h2><a id="namespace" class="header-anchor" href="#namespace"> Namespace</a></h2>
+        </div>
+        <div class='code'>
+          <a id="_re-frame.router" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.router">re-frame.router</a></span>
+  <span class="p">(</span><span class="ss">:refer-clojure</span> <span class="ss">:exclude</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_flush">flush</a></span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">cljs.core.async.macros</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.macros.cljs.html#_go-loop">go-loop</a></span> <span class="nv"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.macros.cljs.html#_go">go</a></span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">reagent.core</span>        <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_flush">flush</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.handlers</span>   <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_handle">handle</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">cljs.core.async</span>     <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_chan">chan</a></span> <span class="nv"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_put!">put!</a></span> <span class="nv"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_&lt;!">&lt;!</a></span> <span class="nv"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_timeout">timeout</a></span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <h2><a id="the-event-conveyor-belt" class="header-anchor" href="#the-event-conveyor-belt"> The Event Conveyor Belt</a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>Moves events from "dispatch" to the router loop.
+Using core.async means we can have the aysnc handling of events.</p>
+<p><span class=todo><strong>TODO</strong>: set buffer size?</span></p>
+        </div>
+        <div class='code'>
+          <a id="_event-chan" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_event-chan">event-chan</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_chan">chan</a></span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>read all pending events from the channel and drop them on the floor</p>
+        </div>
+        <div class='code'>
+          <a id="_purge-chan" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_purge-chan">purge-chan</a></span>
+
+  <span class="p">[]</span>
+  <span class="o">#</span><span class="nv">_</span><span class="p">(</span><span class="k">loop </span><span class="p">[]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          <p><span class=todo><strong>TODO</strong> commented out until poll! is a part of the core.asyc API. Progress on <a href="https://github.com/clojure/core.async/commit/d8047c0b0ec13788c1092f579f03733ee635c493">GitHub</a></span></p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.macros.cljs.html#_go">go</a></span> <span class="p">(</span><span class="nf">poll!</span> <span class="nv"><a class="hidden" href="#_event-chan">event-chan</a></span><span class="p">))</span>    
+      <span class="p">(</span><span class="nf">recur</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          <h2><a id="router-loop" class="header-anchor" href="#router-loop"> Router loop</a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          <p>In a perpetual loop, read events from <code>event-chan</code>, and call the right handler.</p>
+<p>Because handlers occupy the CPU, before each event is handled, hand
+back control to the browser, via a <code>(&lt;! (timeout 0))</code> call.</p>
+<p>In some cases, we need to pause for an entire animationFrame, to ensure that
+the DOM is fully flushed, before then calling a handler known to hog the CPU
+for an extended period.  In such a case, the event should be laballed with metadata
+Example usage (notice the <code>:flush-dom</code> metadata):</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">dispatch</span> <span class="o">^</span><span class="ss">:flush-dom</span>  <span class="p">[</span><span class="ss">:event-id</span> <span class="nv">other</span> <span class="nv">params</span><span class="p">])</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <a id="_router-loop" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_router-loop">router-loop</a></span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.macros.cljs.html#_go-loop">go-loop</a></span> <span class="p">[]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          <p>Wait for an event</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>           <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">event-v</span>  <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_&lt;!">&lt;!</a></span> <span class="nv"><a class="hidden" href="#_event-chan">event-chan</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          <p>Check the event for metadata</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                 <span class="nv">_</span>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="ss">:flush-dom</span> <span class="p">(</span><span class="nb">meta </span><span class="nv">event-v</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          <p>Wait just over one annimation frame (16ms),
+to rensure all pending GUI work is flushed to the DOM.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                            <span class="p">(</span><span class="k">do </span><span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_flush">flush</a></span><span class="p">)</span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_&lt;!">&lt;!</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_timeout">timeout</a></span> <span class="mi">20</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          <p>Just in case we are handling one dispatch after another,
+give the browser back control to do its stuff</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                            <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_&lt;!">&lt;!</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_timeout">timeout</a></span> <span class="mi">0</span><span class="p">)))]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-12" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-12'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>             <span class="p">(</span><span class="nf">try</span>
+               <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_handle">handle</a></span> <span class="nv">event-v</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-13" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-13'>#</a>
+          </div>
+          <p>If the handler throws:</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-14" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-14'>#</a>
+          </div>
+          <ul>
+<li>allow the exception to bubble up because the app, in production,
+  may have hooked window.onerror and perform special processing.</li>
+<li>But an exception which bubbles up will break the enclosing go-loop.
+  So we'll need to start another one.</li>
+<li>purge any pending events, because they are probably related to the
+  event which just fell in a screaming heap. Not sane to handle further
+  events if the prior event failed.</li>
+</ul>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>               <span class="p">(</span><span class="nf">catch</span> <span class="nv">js/Object</span> <span class="nv">e</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-15" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-15'>#</a>
+          </div>
+          <p>Try to recover from this (probably uncaught) error as best we can</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                 <span class="p">(</span><span class="nf">do</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-16" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-16'>#</a>
+          </div>
+          <p>Get rid of any pending events</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                   <span class="p">(</span><span class="nf"><a class="hidden" href="#_purge-chan">purge-chan</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-17" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-17'>#</a>
+          </div>
+          <p>Exception throw will cause termination of go-loop. So, start another.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                   <span class="p">(</span><span class="nf"><a class="hidden" href="#_router-loop">router-loop</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-18" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-18'>#</a>
+          </div>
+          <p>Re-throw so the rest of the app's infrastructure (window.onerror?) gets told</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>                   <span class="p">(</span><span class="nf">throw</span> <span class="nv">e</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-19" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-19'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>           <span class="p">(</span><span class="nf">recur</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-20" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-20'>#</a>
+          </div>
+          <p>start event processing</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="#_router-loop">router-loop</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-21" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-21'>#</a>
+          </div>
+          <h2><a id="dispatch" class="header-anchor" href="#dispatch"> Dispatch</a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-22" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-22'>#</a>
+          </div>
+          <p>Send an event to be processed by the registered handler.</p>
+<p>Usage example:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">dispatch</span> <span class="p">[</span><span class="ss">:delete-item</span> <span class="mi">42</span><span class="p">])</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <a id="_dispatch" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_dispatch">dispatch</a></span>
+
+  <span class="p">[</span><span class="nv">event-v</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">event-v</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-23" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-23'>#</a>
+          </div>
+          <p><code>nil</code> would close the channel</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"dispatch\" is ignoring a nil event."</span><span class="p">)</span>     
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/org.clojure/clojurescript/latest/cljs.core.async.cljs.html#_put!">put!</a></span> <span class="nv"><a class="hidden" href="#_event-chan">event-chan</a></span> <span class="nv">event-v</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-24" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-24'>#</a>
+          </div>
+          <p>Ensure <code>nil</code> return.
+See <a href="https://github.com/Day8/re-frame/wiki/Beware-Returning-False">the dangers of returning false</a></p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>  <span class="nv">nil</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-25" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-25'>#</a>
+          </div>
+          <p>Send an event to be processed by the registered handler, but avoid the async-inducing
+use of <strong>core.async/chan</strong>.</p>
+<p>Usage example:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">dispatch-sync</span> <span class="p">[</span><span class="ss">:delete-item</span> <span class="mi">42</span><span class="p">])</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <a id="_dispatch-sync" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_dispatch-sync">dispatch-sync</a></span>
+
+  <span class="p">[</span><span class="nv">event-v</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_handle">handle</a></span> <span class="nv">event-v</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-26" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-26'>#</a>
+          </div>
+          <p>Ensure nil return.
+See <a href="https://github.com/Day8/re-frame/wiki/Beware-Returning-False">the dangers of returning false</a></p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>  <span class="nv">nil</span><span class="p">)</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

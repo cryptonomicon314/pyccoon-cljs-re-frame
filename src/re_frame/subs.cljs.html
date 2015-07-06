@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/subs.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="subs.cljs.html/../../../index.html">.</a> / <a href="subs.cljs.html/../../index.html">src</a> / <a href="subs.cljs.html/../index.html">re_frame</a> / subs.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_re-frame.subs" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.subs">re-frame.subs</a></span>
+ <span class="p">(</span><span class="ss">:require</span>
+   <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_make-reaction">make-reaction</a></span><span class="p">]]</span>
+   <span class="p">[</span><span class="nv">re-frame.db</span>    <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
+   <span class="p">[</span><span class="nv">re-frame.utils</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <p>maps from handler-id to handler-fn</p>
+        </div>
+        <div class='code'>
+          <a id="_key->fn" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="p">(</span><span class="nf">atom</span> <span class="p">{}))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>Unregisters all subscription handlers</p>
+        </div>
+        <div class='code'>
+          <a id="_clear-handlers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_clear-handlers!">clear-handlers!</a></span>
+
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="p">{}))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>Registers a handler function for an id</p>
+        </div>
+        <div class='code'>
+          <a id="_register" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_register">register</a></span>
+
+  <span class="p">[</span><span class="nv">key-v</span> <span class="nv">handler-fn</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">contains? </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="nv">key-v</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: overwriting subscription-handler for: "</span> <span class="nv">key-v</span><span class="p">))</span>   <span class="c1">;; allow it, but warn.</span>
+  <span class="p">(</span><span class="nf">swap!</span> <span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="nb">assoc </span><span class="nv">key-v</span> <span class="nv">handler-fn</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>Returns a reagent/reaction which observes a part of app-db</p>
+        </div>
+        <div class='code'>
+          <a id="_subscribe" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_subscribe">subscribe</a></span>
+
+  <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">key-v</span>       <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv">v</span><span class="p">)</span>
+        <span class="nv">handler-fn</span>  <span class="p">(</span><span class="nb">get </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_key-&gt;fn">key-&gt;fn</a></span> <span class="nv">key-v</span><span class="p">)]</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">handler-fn</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: no subscription handler registered for: \""</span> <span class="nv">key-v</span> <span class="s">"\".  Returning a nil subscription."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">handler-fn</span> <span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv">v</span><span class="p">))))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

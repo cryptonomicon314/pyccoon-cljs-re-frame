@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: examples/simple/src/simpleexample/core.cljs</title>
+  <link rel="stylesheet" href="../../../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="core.cljs.html/../../../../../index.html">.</a> / <a href="core.cljs.html/../../../../index.html">examples</a> / <a href="core.cljs.html/../../../index.html">simple</a> / <a href="core.cljs.html/../../index.html">src</a> / <a href="core.cljs.html/../index.html">simpleexample</a> / core.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_simpleexample.core" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_simpleexample.core">simpleexample.core</a></span>
+  <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">reagent.ratom</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span><span class="p">]])</span>  
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">reagent.core</span> <span class="ss">:as</span> <span class="nv">reagent</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">atom</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+                                   <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_path">path</a></span>
+                                   <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
+                                   <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span>
+                                   <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span>
+                                   <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <p>trigger a dispatch every second</p>
+        </div>
+        <div class='code'>
+          <a id="_time-updater" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defonce </span><span class="nv"><a class="hidden" href="#_time-updater">time-updater</a></span> <span class="p">(</span><span class="nf">js/setInterval</span>
+                        <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:timer</span> <span class="p">(</span><span class="nf">js/Date.</span><span class="p">)])</span> <span class="mi">1000</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_initial-state" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_initial-state">initial-state</a></span>
+  <span class="p">{</span><span class="ss">:timer</span> <span class="p">(</span><span class="nf">js/Date.</span><span class="p">)</span>
+   <span class="ss">:time-color</span> <span class="s">"#f34"</span><span class="p">})</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>-- Event Handlers ----------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; setup initial state</span>
+  <span class="ss">:initialize</span>                     <span class="c1">;; usage:  (submit [:initialize])</span>
+  <span class="p">(</span><span class="k">fn </span>
+    <span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">merge </span><span class="nv">db</span> <span class="nv"><a class="hidden" href="#_initial-state">initial-state</a></span><span class="p">)))</span>    <span class="c1">;; what it returns becomes the new state</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:time-color</span>                     <span class="c1">;; usage:  (submit [:time-color 34562])</span>
+  <span class="p">(</span><span class="nb"><a class="hidden" href="/src/re_frame/core.cljs.html#_path">path </a></span><span class="p">[</span><span class="ss">:time-color</span><span class="p">])</span>            <span class="c1">;; this is middleware</span>
+  <span class="p">(</span><span class="nf">fn</span>
+    <span class="p">[</span><span class="nv">time-color</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">value</span><span class="p">]]</span>        <span class="c1">;; path middleware adjusts the first parameter</span>
+    <span class="nv">value</span><span class="p">))</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:timer</span>
+  <span class="p">(</span><span class="nf">fn</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>the first item in the second argument is :timer the second is the 
+new value</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">[</span><span class="nv">db</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">value</span><span class="p">]]</span>
+    <span class="p">(</span><span class="nb">assoc </span><span class="nv">db</span> <span class="ss">:timer</span> <span class="nv">value</span><span class="p">)))</span>    <span class="c1">;; return the new version of db</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          <p>-- Subscription Handlers ---------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
+  <span class="ss">:timer</span>
+  <span class="p">(</span><span class="k">fn </span>
+    <span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>                       <span class="c1">;; db is the app-db atom</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="ss">:timer</span> <span class="o">@</span><span class="nv">db</span><span class="p">))))</span>    <span class="c1">;; wrap the compitation in a reaction</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
+  <span class="ss">:time-color</span>
+  <span class="p">(</span><span class="k">fn </span>
+    <span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="ss">:time-color</span> <span class="o">@</span><span class="nv">db</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          <p>-- View Components ---------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <a id="_greeting" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_greeting">greeting</a></span>
+  <span class="p">[</span><span class="nv">message</span><span class="p">]</span>
+  <span class="p">[</span><span class="ss">:h1</span> <span class="nv">message</span><span class="p">])</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_clock" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">clock</span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-color</span> <span class="p">(</span><span class="nf">subscribe</span> <span class="p">[</span><span class="ss">:time-color</span><span class="p">])</span>
+        <span class="nv">timer</span> <span class="p">(</span><span class="nf">subscribe</span> <span class="p">[</span><span class="ss">:timer</span><span class="p">])]</span>
+
+    <span class="p">(</span><span class="k">fn </span><span class="nv">clock-render</span>
+        <span class="p">[]</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-str</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="o">@</span><span class="nv">timer</span>
+                           <span class="nv">.toTimeString</span>
+                           <span class="p">(</span><span class="nf">clojure.string/split</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+                           <span class="nv">first</span><span class="p">)</span>
+              <span class="nv">style</span> <span class="p">{</span><span class="ss">:style</span> <span class="p">{</span><span class="ss">:color</span> <span class="o">@</span><span class="nv">time-color</span><span class="p">}}]</span>
+             <span class="p">[</span><span class="ss">:div.example-clock</span> <span class="nv">style</span> <span class="nv">time-str</span><span class="p">]))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_color-input" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_color-input">color-input</a></span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-color</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:time-color</span><span class="p">])]</span>
+
+    <span class="p">(</span><span class="k">fn </span><span class="nv">color-input-render</span>
+        <span class="p">[]</span>
+        <span class="p">[</span><span class="ss">:div.color-input</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          <p>Time color: </p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>         <span class="p">[</span><span class="ss">:input</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">"text"</span>
+                  <span class="ss">:value</span> <span class="o">@</span><span class="nv">time-color</span>
+                  <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span>
+                               <span class="p">[</span><span class="ss">:time-color</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="nv">%</span> <span class="nv">.-target</span> <span class="nv">.-value</span><span class="p">)])}]])))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_simple-example" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_simple-example">simple-example</a></span>
+  <span class="p">[]</span>
+  <span class="p">[</span><span class="ss">:div</span>
+   <span class="p">[</span><span class="nv"><a class="hidden" href="#_greeting">greeting</a></span> <span class="s">"Hello world, it is now"</span><span class="p">]</span>
+   <span class="p">[</span><span class="nv"><a class="hidden" href="#_clock">clock</a></span><span class="p">]</span>
+   <span class="p">[</span><span class="nv"><a class="hidden" href="#_color-input">color-input</a></span><span class="p">]])</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          <p>-- Entry Point -------------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <a id="_run" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="o">^</span><span class="ss">:export</span> <span class="nv"><a class="hidden" href="#_run">run</a></span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span> <span class="p">[</span><span class="ss">:initialize</span><span class="p">])</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_render">reagent/render</a></span> <span class="p">[</span><span class="nv"><a class="hidden" href="#_simple-example">simple-example</a></span><span class="p">]</span>
+                  <span class="p">(</span><span class="nf">js/document.getElementById</span> <span class="s">"app"</span><span class="p">)))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

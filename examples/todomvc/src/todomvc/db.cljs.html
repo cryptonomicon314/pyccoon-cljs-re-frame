@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: examples/todomvc/src/todomvc/db.cljs</title>
+  <link rel="stylesheet" href="../../../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="db.cljs.html/../../../../../index.html">.</a> / <a href="db.cljs.html/../../../../index.html">examples</a> / <a href="db.cljs.html/../../../index.html">todomvc</a> / <a href="db.cljs.html/../../index.html">src</a> / <a href="db.cljs.html/../index.html">todomvc</a> / db.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_todomvc.db" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">todomvc.db</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">cljs.reader</span><span class="p">]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <p>-- Default app-db Value  ---------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <a id="_default-value" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv">default-value</span>            <span class="c1">;; what gets put into app-db by default.</span>
+  <span class="p">{</span><span class="ss">:todos</span>   <span class="p">(</span><span class="nf">sorted-map</span><span class="p">)</span>      <span class="c1">;; use the (int) :id as the key</span>
+   <span class="ss">:showing</span> <span class="ss">:all</span><span class="p">})</span>            <span class="c1">;; one of :all :done :completed</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>-- Local Storage  ----------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <a id="_lsk" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv">lsk</span> <span class="s">"todos-reframe"</span><span class="p">)</span>     <span class="c1">;; local store key</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>Read in todos from LS, and process into a form we can merge into app-db.</p>
+        </div>
+        <div class='code'>
+          <a id="_ls->todos" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">ls-&gt;todos</span>
+
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">some-&gt;&gt;</span> <span class="p">(</span><span class="nf">.getItem</span> <span class="nv">js/localStorage</span> <span class="nv">lsk</span><span class="p">)</span>
+           <span class="p">(</span><span class="nf">cljs.reader/read-string</span><span class="p">)</span>
+           <span class="p">(</span><span class="nb">into </span><span class="p">(</span><span class="nf">sorted-map</span><span class="p">))</span>         <span class="c1">;; map -&gt; sorted-map</span>
+           <span class="p">(</span><span class="nb">hash-map </span><span class="ss">:todos</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_todos->ls!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">todos-&gt;ls!</span>
+  <span class="p">[</span><span class="nv">todos</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">.setItem</span> <span class="nv">js/localStorage</span> <span class="nv">lsk</span> <span class="p">(</span><span class="nb">str </span><span class="nv">todos</span><span class="p">)))</span>   <span class="c1">;; sorted-map writen as a map</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

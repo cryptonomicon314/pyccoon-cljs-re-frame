@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/undo.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-1" href="#undo"> Undo</a>
+          <a class="source source-2" href="#history"> History </a>
+          <a class="source source-2" href="#explanations"> Explanations </a>
+          <a class="source source-2" href="#subscriptions"> Subscriptions </a>
+          <a class="source source-2" href="#event-handlers"> Event handlers</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="undo.cljs.html/../../../index.html">.</a> / <a href="undo.cljs.html/../../index.html">src</a> / <a href="undo.cljs.html/../index.html">re_frame</a> / undo.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h1><a id="undo" class="header-anchor" href="#undo"> Undo</a></h1>
+        </div>
+        <div class='code'>
+          <a id="_re-frame.undo" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.undo">re-frame.undo</a></span>
+  <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:require</span>
+    <span class="p">[</span><span class="nv">reagent.core</span>        <span class="ss">:as</span>     <span class="nv">reagent</span><span class="p">]</span>
+    <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span>  <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.db</span>         <span class="ss">:refer</span>  <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.handlers</span>   <span class="ss">:as</span>     <span class="nv">handlers</span><span class="p">]</span>
+    <span class="p">[</span><span class="nv">re-frame.subs</span>       <span class="ss">:as</span>     <span class="nv">subs</span><span class="p">]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <h2><a id="history" class="header-anchor" href="#history"> History </a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>Maximum number of undo states maintained</p>
+        </div>
+        <div class='code'>
+          <a id="_max-undos" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_max-undos">max-undos</a></span>
+
+  <span class="p">(</span><span class="nf">atom</span> <span class="mi">50</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_set-max-undos!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_set-max-undos!">set-max-undos!</a></span>
+  <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_max-undos">max-undos</a></span> <span class="nv">n</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>A list of history states</p>
+        </div>
+        <div class='code'>
+          <a id="_undo-list" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span>
+
+  <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">reagent/atom</a></span> <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          <p>A list of future states, caused by undoing</p>
+        </div>
+        <div class='code'>
+          <a id="_redo-list" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span>
+
+  <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">reagent/atom</a></span> <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          <h2><a id="explanations" class="header-anchor" href="#explanations"> Explanations </a></h2>
+<p>Each undo has an associated explanation which can be displayed to the user.</p>
+<p>Seems really ugly to have mirrored vectors, but ...
+the code kinda falls out when you do. I'm feeling lazy.</p>
+        </div>
+        <div class='code'>
+          <a id="_app-explain" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="s">"Mirrors app-db"</span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">reagent/atom</a></span> <span class="s">""</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_undo-explain-list" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="s">"Mirrors undo-list"</span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">reagent/atom</a></span> <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_redo-explain-list" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="o">^</span><span class="ss">:private</span> <span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span> <span class="s">"Mirrors redo-list"</span> <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">reagent/atom</a></span> <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_clear-undos!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn- </span><span class="nv"><a class="hidden" href="#_clear-undos!">clear-undos!</a></span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="p">[])</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_clear-redos!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn- </span><span class="nv"><a class="hidden" href="#_clear-redos!">clear-redos!</a></span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span> <span class="p">[])</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span> <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_clear-history!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_clear-history!">clear-history!</a></span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="#_clear-undos!">clear-undos!</a></span><span class="p">)</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="#_clear-redos!">clear-redos!</a></span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="s">""</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-12" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-12'>#</a>
+          </div>
+          <p>Stores the value currently in app-db, so the user can later undo</p>
+        </div>
+        <div class='code'>
+          <a id="_store-now!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_store-now!">store-now!</a></span>
+
+  <span class="p">[</span><span class="nv">explanation</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="#_clear-redos!">clear-redos!</a></span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">take</span>
+                           <span class="o">@</span><span class="nv"><a class="hidden" href="#_max-undos">max-undos</a></span>
+                           <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="o">@</span><span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">take</span>
+                                   <span class="o">@</span><span class="nv"><a class="hidden" href="#_max-undos">max-undos</a></span>
+                                   <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="nv">explanation</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-13" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-13'>#</a>
+          </div>
+          <p>Returns true if undos exist, false otherwise</p>
+        </div>
+        <div class='code'>
+          <a id="_undos?" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_undos?">undos?</a></span>
+
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nb">pos? </span><span class="p">(</span><span class="nb">count </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-14" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-14'>#</a>
+          </div>
+          <p>Returns true if redos exist, false otherwise</p>
+        </div>
+        <div class='code'>
+          <a id="_redos?" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_redos?">redos?</a></span>
+
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="nb">pos? </span><span class="p">(</span><span class="nb">count </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-15" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-15'>#</a>
+          </div>
+          <p>Returns list of undo descriptions or empty list if no undos</p>
+        </div>
+        <div class='code'>
+          <a id="_undo-explanations" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_undo-explanations">undo-explanations</a></span>
+
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_undos?">undos?</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span><span class="p">)</span>
+    <span class="p">[]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-16" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-16'>#</a>
+          </div>
+          <h2><a id="subscriptions" class="header-anchor" href="#subscriptions"> Subscriptions </a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-17" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-17'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+  <span class="ss">:undos?</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-18" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-18'>#</a>
+          </div>
+          <p>Return <strong>true</strong> if anything is stored in the undo list, otherwise <strong>false</strong>.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_undos?">undos?</a></span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-19" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-19'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+  <span class="ss">:redos?</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-20" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-20'>#</a>
+          </div>
+          <p>Return <strong>true</strong> if anything is stored in the redo list, otherwise <strong>false</strong>.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-21" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-21'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+  <span class="ss">:undo-explanations</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-22" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-22'>#</a>
+          </div>
+          <p>Returns a vector of string explanations ordered oldest to most recent.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo-explanations">undo-explanations</a></span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-23" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-23'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+  <span class="ss">:redo-explanations</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-24" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-24'>#</a>
+          </div>
+          <p>Returns a vector of string explanations ordered from most recent undo onward.</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>    <span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="nb">deref </span><span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-25" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-25'>#</a>
+          </div>
+          <h2><a id="event-handlers" class="header-anchor" href="#event-handlers"> Event handlers</a></h2>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-26" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-26'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_undo" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn- </span><span class="nv"><a class="hidden" href="#_undo">undo</a></span>
+  <span class="p">[</span><span class="nv">undos</span> <span class="nv">cur</span> <span class="nv">redos</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="o">@</span><span class="nv">undos</span>
+        <span class="nv">r</span> <span class="p">(</span><span class="nb">cons </span><span class="o">@</span><span class="nv">cur</span> <span class="o">@</span><span class="nv">redos</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">reset!</span> <span class="nv">cur</span> <span class="p">(</span><span class="nb">last </span><span class="nv">u</span><span class="p">))</span>
+    <span class="p">(</span><span class="nf">reset!</span> <span class="nv">redos</span> <span class="nv">r</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">reset!</span> <span class="nv">undos</span> <span class="p">(</span><span class="nb">pop </span><span class="nv">u</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-27" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-27'>#</a>
+          </div>
+          <p>undo n steps or until we run out of undos</p>
+        </div>
+        <div class='code'>
+          <a id="_undo-n" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn- </span><span class="nv"><a class="hidden" href="#_undo-n">undo-n</a></span>
+
+  <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nb">pos? </span><span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_undos?">undos?</a></span><span class="p">))</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo">undo</a></span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo">undo</a></span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nb">dec </span><span class="nv">n</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-28" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-28'>#</a>
+          </div>
+          <p>Not a pure handler. Usage:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">dispatch</span> <span class="p">[</span><span class="ss">:undo</span> <span class="nv">n</span><span class="p">])</span>
+</pre></div>
+
+
+<p><em>n</em> is optional, defaults to 1</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span>     
+  <span class="ss">:undo</span>                     
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span>
+    <span class="p">[</span><span class="nv">_</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">n</span><span class="p">]]</span>
+    <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_undos?">undos?</a></span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:undo]), but there is nothing to undo."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo-n">undo-n</a></span> <span class="p">(</span><span class="nb">or </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-29" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-29'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_redo" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn- </span><span class="nv"><a class="hidden" href="#_redo">redo</a></span>
+  <span class="p">[</span><span class="nv">undos</span> <span class="nv">cur</span> <span class="nv">redos</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv">undos</span> <span class="o">@</span><span class="nv">cur</span><span class="p">)</span>
+        <span class="nv">r</span>  <span class="o">@</span><span class="nv">redos</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">reset!</span> <span class="nv">cur</span> <span class="p">(</span><span class="nb">first </span><span class="nv">r</span><span class="p">))</span>
+    <span class="p">(</span><span class="nf">reset!</span> <span class="nv">redos</span> <span class="p">(</span><span class="nb">rest </span><span class="nv">r</span><span class="p">))</span>
+    <span class="p">(</span><span class="nf">reset!</span> <span class="nv">undos</span> <span class="nv">u</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-30" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-30'>#</a>
+          </div>
+          <p>redo n steps or until we run out of redos</p>
+        </div>
+        <div class='code'>
+          <a id="_redo-n" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn- </span><span class="nv"><a class="hidden" href="#_redo-n">redo-n</a></span>
+
+  <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nb">pos? </span><span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">))</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo">redo</a></span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo">redo</a></span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nb">dec </span><span class="nv">n</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-31" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-31'>#</a>
+          </div>
+          <p>Not a pure handler. Usage:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">dispatch</span> <span class="p">[</span><span class="ss">:redo</span> <span class="nv">n</span><span class="p">])</span>
+</pre></div>
+
+
+<p>If <em>n</em> absent, defaults to 1</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span>     
+  <span class="ss">:redo</span>                     
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span>               
+    <span class="p">[</span><span class="nv">_</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">n</span><span class="p">]]</span>
+    <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:redo]), but there is nothing to redo."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo-n">redo-n</a></span> <span class="p">(</span><span class="nb">or </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-32" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-32'>#</a>
+          </div>
+          <p>Not a pure handler. Usage:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">dispatch</span> <span class="p">[</span><span class="ss">:purge-redo</span><span class="p">])</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span>     
+  <span class="ss">:purge-redos</span>              
+  <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span>
+    <span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:purge-redos]), but there is nothing to redo."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="#_clear-redos!">clear-redos!</a></span><span class="p">))))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

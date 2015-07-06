@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/utils.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-2" href="#logging"> Logging</a>
+          <a class="source source-2" href="#test"> Test </a>
+          <a class="source source-2" href="#misc"> Misc</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="utils.cljs.html/../../../index.html">.</a> / <a href="utils.cljs.html/../../index.html">src</a> / <a href="utils.cljs.html/../index.html">re_frame</a> / utils.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_re-frame.utils" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">re-frame.utils</span>
+  <span class="p">(</span><span class="ss">:require</span>
+    <span class="p">[</span><span class="nv">clojure.set</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">difference</span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <h2><a id="logging" class="header-anchor" href="#logging"> Logging</a></h2>
+<p>re-frame internally uses a set of logging functions which, by default,
+print to <strong>js/console</strong>.
+Use <a href=#_set-loggers!>set-loggers!</a>
+ if you want to change this default behaviour.
+In production environment, you may want to capture exceptions and POST
+them somewhere.  to , you might want to override the way that exceptions are
+handled by overridding "error"</p>
+        </div>
+        <div class='code'>
+          <a id="_default-loggers" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_default-loggers">default-loggers</a></span>
+  <span class="p">{</span><span class="ss">:log</span>       <span class="o">#</span><span class="p">(</span><span class="nf">.log</span> <span class="nv">js/console</span> <span class="nv">%</span><span class="p">)</span>
+   <span class="ss">:warn</span>      <span class="o">#</span><span class="p">(</span><span class="nf">.warn</span> <span class="nv">js/console</span> <span class="nv">%</span><span class="p">)</span>
+   <span class="ss">:error</span>     <span class="o">#</span><span class="p">(</span><span class="nf">.error</span> <span class="nv">js/console</span> <span class="nv">%</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>group does not exist  &lt; IE 11</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>   <span class="ss">:group</span>     <span class="o">#</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">.group</span> <span class="nv">js/console</span><span class="p">)</span> <span class="p">(</span><span class="nf">.group</span> <span class="nv">js/console</span> <span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nf">.log</span> <span class="nv">js/console</span> <span class="nv">%</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>groupEnd does not exist  &lt; IE 11</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>   <span class="ss">:groupEnd</span>  <span class="o">#</span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">.groupEnd</span> <span class="nv">js/console</span><span class="p">)</span> <span class="p">(</span><span class="nf">.groupEnd</span> <span class="nv">js/console</span><span class="p">))})</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>Holds the current set of loggers.</p>
+        </div>
+        <div class='code'>
+          <a id="_loggers" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_loggers">loggers</a></span> <span class="p">(</span><span class="nf">atom</span> <span class="nv"><a class="hidden" href="#_default-loggers">default-loggers</a></span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          <p>Change the set (subset?) of logging functions used by re-frame.
+'new-loggers' should be a map which looks like default-loggers</p>
+        </div>
+        <div class='code'>
+          <a id="_set-loggers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">set-loggers!</span>
+
+  <span class="p">[</span><span class="nv">new-loggers</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">assert </span><span class="p">(</span><span class="nf">empty?</span>
+            <span class="p">(</span><span class="nb">difference </span><span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">keys </span><span class="nv">new-loggers</span><span class="p">))</span>
+                        <span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">keys </span><span class="nv">default-loggers</span><span class="p">))))</span>
+          <span class="s">&quot;Unknown keys in new-loggers&quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">swap!</span> <span class="nv">loggers</span> <span class="nb">merge </span><span class="nv">new-loggers</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          <h2><a id="test" class="header-anchor" href="#test"> Test </a></h2>
+        </div>
+        <div class='code'>
+          <a id="_log" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_log">log</a></span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">((</span><span class="ss">:log</span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_loggers">loggers</a></span><span class="p">)</span> <span class="p">(</span><span class="nb">apply str </span><span class="nv">args</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_warn" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_warn">warn</a></span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">((</span><span class="ss">:warn</span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_loggers">loggers</a></span><span class="p">)</span> <span class="p">(</span><span class="nb">apply str </span><span class="nv">args</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_group" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_group">group</a></span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">((</span><span class="ss">:group</span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_loggers">loggers</a></span><span class="p">)</span> <span class="p">(</span><span class="nb">apply str </span><span class="nv">args</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_groupEnd" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_groupEnd">groupEnd</a></span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">((</span><span class="ss">:groupEnd</span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_loggers">loggers</a></span><span class="p">)</span> <span class="p">(</span><span class="nb">apply str </span><span class="nv">args</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_error" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_error">error</a></span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">((</span><span class="ss">:error</span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_loggers">loggers</a></span><span class="p">)</span> <span class="p">(</span><span class="nb">apply str </span><span class="nv">args</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          <h2><a id="misc" class="header-anchor" href="#misc"> Misc</a></h2>
+        </div>
+        <div class='code'>
+          <a id="_first-in-vector" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_first-in-vector">first-in-vector</a></span>
+  <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">vector? </span><span class="nv">v</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">first </span><span class="nv">v</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_error">error</a></span> <span class="s">"re-frame: expected a vector event, but got: "</span> <span class="nv">v</span><span class="p">)))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

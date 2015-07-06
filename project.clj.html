@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: project.clj</title>
+  <link rel="stylesheet" href="./pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="./index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="./pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="project.clj.html/../index.html">.</a> / project.clj</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_re-frame" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defproject </span><span class="nv">re-frame</span> <span class="s">"0.4.1"</span>
+  <span class="ss">:description</span>  <span class="s">"A Clojurescript MVC-like Framework For Writing SPAs Using Reagent."</span>
+  <span class="ss">:url</span>          <span class="s">"https://github.com/Day8/re-frame.git"</span>
+  <span class="ss">:license</span>      <span class="p">{</span><span class="ss">:name</span> <span class="s">"MIT"</span><span class="p">}</span>
+  <span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">"1.6.0"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">org.clojure/clojurescript</span> <span class="s">"0.0-3211"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">org.clojure/core.async</span> <span class="s">"0.1.346.0-17112a-alpha"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">reagent</span> <span class="s">"0.5.0"</span><span class="p">]]</span>
+  
+  <span class="ss">:profiles</span>     <span class="p">{</span><span class="ss">:debug</span> <span class="p">{</span><span class="ss">:debug</span> <span class="nv">true</span><span class="p">}</span>
+                 <span class="ss">:dev</span>   <span class="p">{</span><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">spellhouse/clairvoyant</span> <span class="s">"0.0-48-gf5e59d3"</span><span class="p">]]</span>
+                         <span class="ss">:plugins</span>      <span class="p">[[</span><span class="nv">lein-cljsbuild</span> <span class="s">"1.0.5"</span><span class="p">]</span>
+                                        <span class="p">[</span><span class="nv">com.cemerick/clojurescript.test</span> <span class="s">"0.3.3"</span><span class="p">]]}}</span>
+  
+  
+  <span class="ss">:clean-targets</span> <span class="p">[</span><span class="ss">:target-path</span>
+                  <span class="s">"run/compiled/demo"</span><span class="p">]</span>
+  
+  <span class="ss">:resource-paths</span> <span class="p">[</span><span class="s">"run/resources"</span><span class="p">]</span>
+  <span class="ss">:jvm-opts</span>       <span class="p">[</span><span class="s">"-Xmx1g"</span> <span class="s">"-XX:+UseConcMarkSweepGC"</span><span class="p">]</span> <span class="c1">;;</span>
+  <span class="ss">:source-paths</span> <span class="p">[</span><span class="s">"src"</span><span class="p">]</span>
+  <span class="ss">:test-paths</span>   <span class="p">[</span><span class="s">"test"</span><span class="p">]</span>
+
+  
+  <span class="ss">:cljsbuild</span>    <span class="p">{</span><span class="ss">:builds</span> <span class="p">[{</span><span class="ss">:id</span> <span class="s">"test"</span>      <span class="c1">;; currently bogus, there is no demo or tests</span>
+                           <span class="ss">:source-paths</span>   <span class="p">[</span><span class="s">"test"</span><span class="p">]</span>
+                           <span class="ss">:compiler</span>       <span class="p">{</span><span class="ss">:output-to</span>     <span class="s">"run/compiled/test.js"</span>
+                                            <span class="ss">:source-map</span>    <span class="s">"run/compiled/test.js.map"</span>
+                                            <span class="ss">:output-dir</span>    <span class="s">"run/compiled/test"</span>
+                                            <span class="ss">:optimizations</span> <span class="ss">:simple</span>
+                                            <span class="ss">:pretty-print</span> <span class="nv">true</span><span class="p">}}]</span>
+                 
+                 <span class="ss">:test-commands</span> <span class="p">{</span><span class="s">"rhino"</span> <span class="p">[</span><span class="s">"rhino"</span> <span class="s">"-opt"</span> <span class="s">"-1"</span> <span class="ss">:rhino-runner</span>
+                                            <span class="s">"run/compiled/test.js"</span><span class="p">]</span>
+                                 <span class="s">"slimer"</span> <span class="p">[</span><span class="s">"xvfb-run"</span> <span class="s">"-a"</span> <span class="s">"slimerjs"</span> <span class="ss">:runner</span>
+                                                   <span class="s">"run/compiled/test.js"</span><span class="p">]</span>
+                                 <span class="s">"phantom"</span> <span class="p">[</span><span class="s">"phantomjs"</span> <span class="c1">; doesn't work with phantomjs &lt; 2.0.0</span>
+                                            <span class="ss">:runner</span> <span class="s">"run/compiled/test.js"</span><span class="p">]}}</span>
+  
+  <span class="ss">:aliases</span>      <span class="p">{</span><span class="s">"auto"</span>  <span class="p">[</span><span class="s">"do"</span> <span class="s">"clean,"</span> <span class="s">"cljsbuild"</span> <span class="s">"clean,"</span> <span class="s">"cljsbuild"</span> <span class="s">"auto"</span> <span class="s">"demo,"</span><span class="p">]</span>
+                 <span class="s">"once"</span>  <span class="p">[</span><span class="s">"do"</span> <span class="s">"clean,"</span> <span class="s">"cljsbuild"</span> <span class="s">"clean,"</span> <span class="s">"cljsbuild"</span> <span class="s">"once"</span> <span class="s">"demo,"</span><span class="p">]</span>
+                 <span class="s">"test-rhino"</span>  <span class="p">[</span><span class="s">"do"</span> <span class="s">"clean,"</span> <span class="s">"cljsbuild"</span> <span class="s">"once,"</span> <span class="s">"cljsbuild"</span> <span class="s">"test"</span> <span class="s">"rhino"</span><span class="p">]</span>
+                 <span class="s">"test-slimer"</span> <span class="p">[</span><span class="s">"do"</span> <span class="s">"clean,"</span> <span class="s">"cljsbuild"</span> <span class="s">"once,"</span> <span class="s">"cljsbuild"</span> <span class="s">"test"</span> <span class="s">"slimer"</span><span class="p">]</span> <span class="p">})</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

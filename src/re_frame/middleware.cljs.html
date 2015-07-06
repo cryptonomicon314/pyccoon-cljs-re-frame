@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: src/re_frame/middleware.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-1" href="#middleware"> Middleware</a>
+          <a class="source source-2" href="#namespace"> Namespace</a>
+          <a class="source source-2" href="#middleware-factories"> Middleware Factories</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="middleware.cljs.html/../../../index.html">.</a> / <a href="middleware.cljs.html/../../index.html">src</a> / <a href="middleware.cljs.html/../index.html">re_frame</a> / middleware.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h1><a id="middleware" class="header-anchor" href="#middleware"> Middleware</a></h1>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <h2><a id="namespace" class="header-anchor" href="#namespace"> Namespace</a></h2>
+        </div>
+        <div class='code'>
+          <a id="_re-frame.middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.middleware">re-frame.middleware</a></span>
+  <span class="p">(</span><span class="ss">:require</span>
+    <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_IReactiveAtom">IReactiveAtom</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.undo</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/undo.cljs.html#_store-now!">store-now!</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.utils</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_log">log</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_group">group</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_groupEnd">groupEnd</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">clojure.data</span>   <span class="ss">:as</span> <span class="nv">data</span><span class="p">]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>See docs in the <a href="https://github.com/Day8/re-frame/wiki">Wiki</a></p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>Acts as an adaptor, allowing handlers to be writen as pure functions.
+The re-frame router passes the <code>app-db</code> atom as the first parameter to any handler.
+This middleware adapts that atom to be the value within the atom.
+If you strip away the error/efficiency checks, this middleware is doing:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">reset!</span> <span class="nv">app-db</span> <span class="p">(</span><span class="nf">handler</span> <span class="o">@</span><span class="nv">app-db</span> <span class="nv">event-vec</span><span class="p">))</span>
+</pre></div>
+
+
+<p>You don't have to use this middleware directly. It is automatically applied to
+your handler's middleware when you use <strong>register-handler</strong>.
+In fact, the only way to by-pass automatic use of <strong>pure</strong> in your middleware
+is to use the low level registration function
+<a href=handlers.cljs.html#_register-base>re-frame.handlers/register-base</a></p>
+        </div>
+        <div class='code'>
+          <a id="_pure" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_pure">pure</a></span>
+
+  <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">pure-handler</span>
+    <span class="p">[</span><span class="nv">app-db</span> <span class="nv">event-vec</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nf">satisfies?</span> <span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_IReactiveAtom">IReactiveAtom</a></span> <span class="nv">app-db</span><span class="p">))</span>
+      <span class="p">(</span><span class="nf">do</span>
+        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">map? </span><span class="nv">app-db</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: Looks like \"pure\" is in the middleware pipeline twice. Ignoring."</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: \"pure\" middleware not given a Ratom.  Got: "</span> <span class="nv">app-db</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>turn this into a noop handler</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>        <span class="nv">handler</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>      <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">db</span>      <span class="o">@</span><span class="nv">app-db</span>
+            <span class="nv">new-db</span>  <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">event-vec</span><span class="p">)]</span>
+        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">new-db</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: your pure handler returned nil. It should return the new db state."</span><span class="p">)</span>
+          <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nb">identical? </span><span class="nv">db</span> <span class="nv">new-db</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">reset!</span> <span class="nv">app-db</span> <span class="nv">new-db</span><span class="p">)))))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          <p>Middleware which catches and prints any handler-generated exceptions to console.
+Handlers are called from within a core.async go-loop, and core.async produces
+a special kind of hell when in comes to stacktraces. By the time an exception
+has passed through a go-loop its stack is mangled beyond repair and you'll
+have no idea where the exception was thrown.</p>
+<p>So this middleware catches and prints to stacktrace before the core.async sausage
+machine has done its work.</p>
+        </div>
+        <div class='code'>
+          <a id="_log-ex" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_log-ex">log-ex</a></span>
+
+  <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">log-ex-handler</span>
+    <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: use of \"log-ex\" is deprecated. You don't need it any more IF YOU ARE USING CHROME 44. Chrome now seems to now produce good stack traces."</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">try</span>
+      <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">v</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">catch</span> <span class="ss">:default</span> <span class="nv">e</span>     <span class="c1">;; ooops, handler threw</span>
+        <span class="p">(</span><span class="nf">do</span>
+          <span class="p">(</span><span class="nf">.error</span> <span class="nv">js/console</span> <span class="p">(</span><span class="nf">.-stack</span> <span class="nv">e</span><span class="p">))</span>
+          <span class="p">(</span><span class="nf">throw</span> <span class="nv">e</span><span class="p">))))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          <p>Middleware which logs debug information to <strong>js/console</strong> for each event.
+Includes a <a href="https://clojuredocs.org/clojure.data/diff">clojure.data/diff</a>
+of the db, before vs after, showing the changes
+caused by the event.</p>
+        </div>
+        <div class='code'>
+          <a id="_debug" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">debug</span>
+
+  <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">debug-handler</span>
+    <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">log</span>  <span class="s">&quot;-- New Event ----------------------------------------------------&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">group</span> <span class="s">&quot;re-frame event: &quot;</span> <span class="nv">v</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">new-db</span>  <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">v</span><span class="p">)</span>
+          <span class="nv">diff</span>    <span class="p">(</span><span class="nf">data/diff</span> <span class="nv">db</span> <span class="nv">new-db</span><span class="p">)]</span>
+      <span class="p">(</span><span class="nf">log</span> <span class="s">&quot;only before: &quot;</span> <span class="p">(</span><span class="nb">first </span><span class="nv">diff</span><span class="p">))</span>
+      <span class="p">(</span><span class="nf">log</span> <span class="s">&quot;only after : &quot;</span> <span class="p">(</span><span class="nb">second </span><span class="nv">diff</span><span class="p">))</span>
+      <span class="p">(</span><span class="nf">groupEnd</span><span class="p">)</span>
+      <span class="nv">new-db</span><span class="p">)))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          <p>Middleware which removes the first element of <code>v</code>, allowing you to write
+more aesthetically pleasing handlers. No leading underscore on the <strong>event-v!</strong>
+Your handlers will look like this:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">my-handler</span>
+  <span class="p">[</span><span class="nv">db</span> <span class="p">[</span><span class="nv">x</span> <span class="nv">y</span> <span class="nv">z</span><span class="p">]]</span>    <span class="c1">;; &lt;-- instead of [_ x y z]</span>
+  <span class="nv">....</span><span class="p">)</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <a id="_trim-v" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_trim-v">trim-v</a></span>
+
+  <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv">trim-v-handler</span>
+    <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">rest </span><span class="nv">v</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-9" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-9'>#</a>
+          </div>
+          <h2><a id="middleware-factories" class="header-anchor" href="#middleware-factories"> Middleware Factories</a></h2>
+<p><strong>Note</strong>: wierd approach defn-ing middleware factories below. Why? Because
+I wanted to put some metadata on them (useful for later checking).
+Found I had to do it this way:</p>
+<div class="codehilite"><pre>  <span class="p">(</span><span class="k">def </span><span class="nv">fn-name</span>
+    <span class="s">&quot;docstring&quot;</span>
+    <span class="o">^</span><span class="p">{</span><span class="nv">....</span><span class="p">}</span> <span class="c1">;; middleware put on the following fn</span>
+    <span class="p">(</span><span class="k">fn </span><span class="nv">fn-name</span> <span class="nv">....</span><span class="p">))</span>
+</pre></div>
+
+
+<p>So, yeah, wierd.</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-10" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-10'>#</a>
+          </div>
+          <p>A middleware factory which supplies a sub-tree of <code>db</code> to the handler.
+Works a bit like update-in. Supplies a narrowed data structure for the handler.
+Afterwards, grafts the result of the handler back into db.
+Usage:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nb">path </span><span class="ss">:some</span> <span class="ss">:path</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">path </span><span class="p">[</span><span class="ss">:some</span> <span class="ss">:path</span><span class="p">])</span>
+<span class="p">(</span><span class="nb">path </span><span class="p">[</span><span class="ss">:some</span> <span class="ss">:path</span><span class="p">]</span> <span class="ss">:to</span> <span class="ss">:here</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">path </span><span class="p">[</span><span class="ss">:some</span> <span class="ss">:path</span><span class="p">]</span> <span class="p">[</span><span class="ss">:to</span><span class="p">]</span> <span class="ss">:here</span><span class="p">)</span>
+</pre></div>
+        </div>
+        <div class='code'>
+          <a id="_path" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_path">path</a></span>
+
+  <span class="o">^</span><span class="p">{</span><span class="ss">:re-frame-factory-name</span> <span class="s">"path"</span><span class="p">}</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv"><a class="hidden" href="#_path">path</a></span>
+    <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb"><a class="hidden" href="#_path">path </a></span>  <span class="p">(</span><span class="nf">flatten</span> <span class="nv">args</span><span class="p">)</span>
+          <span class="nv">_</span>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">empty?</span> <span class="nv"><a class="hidden" href="#_path">path</a></span><span class="p">)</span>
+                   <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"path\" middleware given no params."</span><span class="p">))]</span>
+      <span class="p">(</span><span class="k">fn </span><span class="nv">path-middleware</span>
+        <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+        <span class="p">(</span><span class="k">fn </span><span class="nv">path-handler</span>
+          <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+          <span class="p">(</span><span class="nf">assoc-in</span> <span class="nv">db</span> <span class="nb"><a class="hidden" href="#_path">path </a></span><span class="p">(</span><span class="nf">handler</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">db</span> <span class="nv"><a class="hidden" href="#_path">path</a></span><span class="p">)</span> <span class="nv">v</span><span class="p">)))))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-11" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-11'>#</a>
+          </div>
+          <p>A Middleware factory which stores an undo checkpoint.
+<code>explanation</code> can be either a string or a function. If it is a
+function then must be:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="nf">db</span> <span class="nv">event-vec</span><span class="p">)</span> <span class="nb">-&gt; </span><span class="nv">string</span>
+</pre></div>
+
+
+<p><code>explanation</code> can be <code>nil</code>. in which case <code>""</code> is recorded.</p>
+        </div>
+        <div class='code'>
+          <a id="_undoable" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_undoable">undoable</a></span>
+
+  <span class="o">^</span><span class="p">{</span><span class="ss">:re-frame-factory-name</span> <span class="s">"undoable"</span><span class="p">}</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv"><a class="hidden" href="#_undoable">undoable</a></span>
+    <span class="p">[</span><span class="nv">explanation</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">fn </span><span class="nv">undoable-middleware</span>
+      <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+      <span class="p">(</span><span class="k">fn </span><span class="nv">undoable-handler</span>
+        <span class="p">[</span><span class="nv">db</span> <span class="nv">event-vec</span><span class="p">]</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">explanation</span> <span class="p">(</span><span class="nf">cond</span>
+                            <span class="p">(</span><span class="nf">fn?</span> <span class="nv">explanation</span><span class="p">)</span>     <span class="p">(</span><span class="nf">explanation</span> <span class="nv">db</span> <span class="nv">event-vec</span><span class="p">)</span>
+                            <span class="p">(</span><span class="nb">string? </span><span class="nv">explanation</span><span class="p">)</span> <span class="nv">explanation</span>
+                            <span class="p">(</span><span class="nb">nil? </span><span class="nv">explanation</span><span class="p">)</span>    <span class="s">""</span>
+                            <span class="ss">:else</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \"undoable\" middleware given a bad parameter. Got: "</span> <span class="nv">explanation</span><span class="p">))]</span>
+          <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/undo.cljs.html#_store-now!">store-now!</a></span> <span class="nv">explanation</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">event-vec</span><span class="p">))))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-12" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-12'>#</a>
+          </div>
+          <p>Middleware factory which runs a given function "f" in the after position.
+"f" is (db v) -&gt; db
+Unlike "after" which is about side effects, "enrich" expects f to process and alter
+db in some useful way, contributing to the derived data, flowing vibe.
+Imagine that todomvc needed to do duplicate detection - if any two todos had
+the same text, then highlight their background, and report them in a warning
+down the bottom.
+Almost any action (edit text, add new todo, remove a todo) requires a
+complete reassesment of duplication errors and warnings. Eg: that edit
+update might have introduced a new duplicate or removed one.
+Same with a todo removal.
+And to perform this enrichment, a function has to inspect all the todos,
+possibly set flags on each, and set some overall list of duplicates.
+And this duplication check might just be one check amoung many.
+"f" would need to be both adding and removing the duplicate warnings.
+By applying "f" in middleware, we keep the handlers simple and yet we
+ensure this important step is not missed.</p>
+        </div>
+        <div class='code'>
+          <a id="_enrich" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_enrich">enrich</a></span>
+
+  <span class="o">^</span><span class="p">{</span><span class="ss">:re-frame-factory-name</span> <span class="s">"enrich"</span><span class="p">}</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv"><a class="hidden" href="#_enrich">enrich</a></span>
+    <span class="p">[</span><span class="nv">f</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">fn </span><span class="nv">enrich-middleware</span>
+      <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+      <span class="p">(</span><span class="k">fn </span><span class="nv">enrich-handler</span>
+        <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+        <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">v</span><span class="p">)</span> <span class="nv">v</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-13" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-13'>#</a>
+          </div>
+          <p>Middleware factory which runs a function "f" in the "after handler"
+position presumably for side effects.
+"f" is given the new value of "db". It's return value is ignored.
+Examples: "f" can run schema validation. Or write current state to localstorage. etc.
+In effect, "f" is meant to sideeffect. It gets no chance to change db. See "enrich"
+(if you need that.)</p>
+        </div>
+        <div class='code'>
+          <a id="_after" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_after">after</a></span>
+
+  <span class="o">^</span><span class="p">{</span><span class="ss">:re-frame-factory-name</span> <span class="s">"after"</span><span class="p">}</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv"><a class="hidden" href="#_after">after</a></span>
+    <span class="p">[</span><span class="nv">f</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">fn </span><span class="nv">after-middleware</span>
+      <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+      <span class="p">(</span><span class="k">fn </span><span class="nv">after-handler</span>
+        <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">new-db</span> <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">v</span><span class="p">)]</span>
+          <span class="p">(</span><span class="nf">f</span> <span class="nv">new-db</span> <span class="nv">v</span><span class="p">)</span>   <span class="c1">;; call f for side effects</span>
+          <span class="nv">new-db</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-14" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-14'>#</a>
+          </div>
+          <p>EXPERIMENTAL</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-15" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-15'>#</a>
+          </div>
+          <p>Middleware factory which acts a bit like "reaction"  (but it flows into db , rather than out)
+It observes <em>N</em>  inputs (paths into db) and if any of them change (as a result of the
+handler being run) then it runs 'f' to compute a new value, which is
+then assoced into the given out-path within app-db.</p>
+<p>Usage:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">my-f</span>
+  <span class="p">[</span><span class="nv">a-val</span> <span class="nv">b-val</span><span class="p">]</span>
+  <span class="nv">...</span><span class="p">)</span> <span class="c1">;; some computation on a and b in here</span>
+
+<span class="p">(</span><span class="nf">on-changes</span> <span class="nv">my-f</span> <span class="p">[</span><span class="ss">:c</span><span class="p">]</span>  <span class="p">[</span><span class="ss">:a</span><span class="p">]</span> <span class="p">[</span><span class="ss">:b</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Put the middlware above on the right handlers (ones which might change :a or :b).
+It will:</p>
+<ul>
+<li>call 'f' each time the value at path <code>[:a]</code> or <code>[:b]</code> changes</li>
+<li>call 'f' with the values extracted from <code>[:a] [:b]</code></li>
+<li><strong>assoc</strong> the return value from 'f' into the path  <code>[:c]</code></li>
+</ul>
+        </div>
+        <div class='code'>
+          <a id="_on-changes" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span> <span class="nv"><a class="hidden" href="#_on-changes">on-changes</a></span>
+
+  <span class="o">^</span><span class="p">{</span><span class="ss">:re-frame-factory-name</span> <span class="s">"on-changes"</span><span class="p">}</span>
+  <span class="p">(</span><span class="k">fn </span><span class="nv"><a class="hidden" href="#_on-changes">on-changes</a></span>
+    <span class="p">[</span><span class="nv">f</span> <span class="nv">out-path</span> <span class="o">&amp;</span> <span class="nv">in-paths</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">fn </span><span class="nv">on-changed-middleware</span>
+      <span class="p">[</span><span class="nv">handler</span><span class="p">]</span>
+      <span class="p">(</span><span class="k">fn </span><span class="nv">on-changed-handler</span>
+        <span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-16" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-16'>#</a>
+          </div>
+          <p>Run the handler, computing a new generation of db</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>              <span class="nv">new-db</span> <span class="p">(</span><span class="nf">handler</span> <span class="nv">db</span> <span class="nv">v</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-17" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-17'>#</a>
+          </div>
+          <p>Work out if any "inputs" have changed</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>              <span class="nv">new-ins</span>      <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">get-in</span> <span class="nv">new-db</span> <span class="nv">%</span><span class="p">)</span> <span class="nv">in-paths</span><span class="p">)</span>
+              <span class="nv">old-ins</span>      <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">get-in</span> <span class="nv">db</span> <span class="nv">%</span><span class="p">)</span> <span class="nv">in-paths</span><span class="p">)</span>
+              <span class="nv">changed-ins?</span> <span class="p">(</span><span class="nb">some false? </span><span class="p">(</span><span class="nb">map identical? </span><span class="nv">new-ins</span> <span class="nv">old-ins</span><span class="p">))]</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-18" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-18'>#</a>
+          </div>
+          <p>If one of the inputs has changed, then run 'f'</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>          <span class="p">(</span><span class="k">if </span><span class="nv">changed-ins?</span>
+            <span class="p">(</span><span class="nf">assoc-in</span> <span class="nv">new-db</span> <span class="nv">out-path</span> <span class="p">(</span><span class="nb">apply </span><span class="nv">f</span> <span class="nv">new-ins</span><span class="p">))</span>
+            <span class="nv">new-db</span><span class="p">))))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-19" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-19'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_a" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_a">a</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-20" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-20'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_b" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_b">b</a></span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-21" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-21'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_c" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_c">c</a></span><span class="p">)</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: examples/todomvc/src/todomvc/subs.cljs</title>
+  <link rel="stylesheet" href="../../../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="subs.cljs.html/../../../../../index.html">.</a> / <a href="subs.cljs.html/../../../../index.html">examples</a> / <a href="subs.cljs.html/../../../index.html">todomvc</a> / <a href="subs.cljs.html/../../index.html">src</a> / <a href="subs.cljs.html/../index.html">todomvc</a> / subs.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_todomvc.subs" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">todomvc.subs</span>
+  <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">reagent.ratom</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">reaction</span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">register-sub</span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <p>-- Helpers -----------------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <a id="_filter-fn-for" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">filter-fn-for</span>
+      <span class="p">[</span><span class="nv">showing-kw</span><span class="p">]</span>
+      <span class="p">(</span><span class="nf">case</span> <span class="nv">showing-kw</span>
+            <span class="ss">:active</span> <span class="p">(</span><span class="nb">complement </span><span class="ss">:done</span><span class="p">)</span>
+            <span class="ss">:done</span>   <span class="ss">:done</span>
+            <span class="ss">:all</span>    <span class="nv">identity</span><span class="p">))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>return the count of todos for which :done is true</p>
+        </div>
+        <div class='code'>
+          <a id="_completed-count" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">completed-count</span>
+
+      <span class="p">[</span><span class="nv">todos</span><span class="p">]</span>
+      <span class="p">(</span><span class="nb">count </span><span class="p">(</span><span class="nb">filter </span><span class="ss">:done</span> <span class="p">(</span><span class="nb">vals </span><span class="nv">todos</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          <p>-- Subscription handlers and registration  ---------------------------------</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf">register-sub</span>
+  <span class="ss">:todos</span>                <span class="c1">;; usage:  (subscribe [:todos])</span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
+      <span class="p">(</span><span class="nf">reaction</span> <span class="p">(</span><span class="nb">vals </span><span class="p">(</span><span class="ss">:todos</span> <span class="o">@</span><span class="nv">db</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nf">register-sub</span>
+  <span class="ss">:visible-todos</span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
+      <span class="p">(</span><span class="nf">reaction</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">filter-fn</span> <span class="p">(</span><span class="nf">filter-fn-for</span> <span class="p">(</span><span class="ss">:showing</span> <span class="o">@</span><span class="nv">db</span><span class="p">))</span>
+                      <span class="nv">todos</span>     <span class="p">(</span><span class="nb">vals </span><span class="p">(</span><span class="ss">:todos</span> <span class="o">@</span><span class="nv">db</span><span class="p">))]</span>
+                     <span class="p">(</span><span class="nb">filter </span><span class="nv">filter-fn</span> <span class="nv">todos</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nf">register-sub</span>
+  <span class="ss">:completed-count</span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
+      <span class="p">(</span><span class="nf">reaction</span> <span class="p">(</span><span class="nf">completed-count</span> <span class="p">(</span><span class="ss">:todos</span> <span class="o">@</span><span class="nv">db</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nf">register-sub</span>
+  <span class="ss">:footer-stats</span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
+      <span class="p">(</span><span class="nf">reaction</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">todos</span> <span class="p">(</span><span class="ss">:todos</span> <span class="o">@</span><span class="nv">db</span><span class="p">)</span>
+              <span class="nv">completed-count</span> <span class="p">(</span><span class="nf">completed-count</span> <span class="nv">todos</span><span class="p">)</span>
+              <span class="nv">active-count</span>    <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">count </span><span class="nv">todos</span><span class="p">)</span> <span class="nv">completed-count</span><span class="p">)</span>
+              <span class="nv">showing</span>         <span class="p">(</span><span class="ss">:showing</span> <span class="o">@</span><span class="nv">db</span><span class="p">)]</span>
+             <span class="p">[</span><span class="nv">active-count</span> <span class="nv">completed-count</span> <span class="nv">showing</span><span class="p">]))))</span>  <span class="c1">;; tuple</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

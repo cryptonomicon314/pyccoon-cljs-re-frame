@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: examples/todomvc/README.md</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' class="documentation">
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div id="jump_to" class="btn">
+    Contents
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source source-1" href="#todomvc-done-with-re-frame"> TodoMVC done with re-frame</a>
+          <a class="source source-2" href="#setup-and-run"> Setup And Run</a>
+          <a class="source source-2" href="#compile-an-optimized-version"> Compile an optimized version</a>
+          <a class="source source-2" href="#exploring-the-code"> Exploring The Code</a>
+          <a class="source source-2" href="#notes"> Notes</a>
+      </div>
+    </div>
+    </div>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="README.md.html/../../../index.html">.</a> / <a href="README.md.html/../../index.html">examples</a> / <a href="README.md.html/../index.html">todomvc</a> / README.md</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          <h1><a id="todomvc-done-with-re-frame" class="header-anchor" href="#todomvc-done-with-re-frame"> TodoMVC done with re-frame</a></h1>
+<p>A <a href="https://github.com/Day8/re-frame">re-frame</a> implementation of <a href="http://todomvc.com/">TodoMVC</a>.</p>
+<h2><a id="setup-and-run" class="header-anchor" href="#setup-and-run"> Setup And Run</a></h2>
+<ol>
+<li>
+<p>Install <a href="http://leiningen.org/">Leiningen</a>  (plus Java).</p>
+</li>
+<li>
+<p>Get the re-frame repo
+   <code>git clone https://github.com/Day8/re-frame.git</code></p>
+</li>
+<li>
+<p>cd to the right example directory
+   <code>cd re-frame/examples/todomvc</code></p>
+</li>
+<li>
+<p>Clean build
+   <code>lein do clean, figwheel</code></p>
+</li>
+<li>
+<p>Run
+   You'll have to wait for step 4 to do its compile, but then:
+   <code>open http://localhost:3450</code></p>
+</li>
+</ol>
+<h2><a id="compile-an-optimized-version" class="header-anchor" href="#compile-an-optimized-version"> Compile an optimized version</a></h2>
+<ol>
+<li>
+<p>Compile
+   <code>lein do clean, with-profile prod compile</code></p>
+</li>
+<li>
+<p>Open the following in your browser
+   <code>resources/public/index.html</code></p>
+</li>
+</ol>
+<h2><a id="exploring-the-code" class="header-anchor" href="#exploring-the-code"> Exploring The Code</a></h2>
+<p>From the re-frame readme:</p>
+<div class="codehilite"><pre><span class="nx">To</span> <span class="nx">build</span> <span class="nx">a</span> <span class="nx">re</span><span class="o">-</span><span class="nx">frame</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">you</span><span class="o">:</span>
+  <span class="o">-</span> <span class="nx">design</span> <span class="nx">your</span> <span class="nx">app</span><span class="err">&#39;</span><span class="nx">s</span> <span class="nx">data</span> <span class="nx">structure</span> <span class="p">(</span><span class="nx">data</span> <span class="nx">layer</span><span class="p">)</span>
+  <span class="o">-</span> <span class="nx">write</span> <span class="nx">and</span> <span class="nx">register</span> <span class="nx">subscription</span> <span class="nx">functions</span> <span class="p">(</span><span class="nx">query</span> <span class="nx">layer</span><span class="p">)</span>
+  <span class="o">-</span> <span class="nx">write</span> <span class="nx">Reagent</span> <span class="nx">component</span> <span class="nx">functions</span> <span class="p">(</span><span class="nx">view</span> <span class="nx">layer</span><span class="p">)</span>
+  <span class="o">-</span> <span class="nx">write</span> <span class="nx">and</span> <span class="nx">register</span> <span class="nx">event</span> <span class="nx">handler</span> <span class="nx">functions</span> <span class="p">(</span><span class="nx">control</span> <span class="nx">layer</span> <span class="nx">and</span><span class="o">/</span><span class="nx">or</span> <span class="nx">state</span> <span class="nx">transition</span> <span class="nx">layer</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In <code>src</code>, there's a matching set of files (each small):</p>
+<div class="codehilite"><pre>src
+├── core.cljs         &lt;--- entry point, plus history
+├── db.cljs           &lt;--- data related  (data layer)
+├── subs.cljs         &lt;--- subscription handlers  (query layer)
+├── views.cljs        &lt;--- reagent  components (view layer)
+└── handlers.cljs     &lt;--- event handlers (control/update layer)
+</pre></div>
+
+
+<h2><a id="notes" class="header-anchor" href="#notes"> Notes</a></h2>
+<p>Various:
+ - The <a href="https://github.com/reagent-project/reagent/tree/master/examples/todomvc">offical reagent example</a>.
+ - There's also a sibling example (under construction) called TodoMVC-plus which is a more complete example, including testing etc.
+ - Look at the <a href="https://github.com/Day8/re-frame/wiki">re-frame Wiki</a>.</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

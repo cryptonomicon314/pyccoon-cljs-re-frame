@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: examples/simple/project.clj</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="project.clj.html/../../../index.html">.</a> / <a href="project.clj.html/../../index.html">examples</a> / <a href="project.clj.html/../index.html">simple</a> / project.clj</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_simple-re-frame" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defproject </span><span class="nv">simple-re-frame</span> <span class="s">"0.4.0"</span>
+  <span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">"1.6.0"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">org.clojure/clojurescript</span> <span class="s">"0.0-3208"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">reagent</span> <span class="s">"0.5.0"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">re-frame</span> <span class="s">"0.4.1"</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">figwheel</span> <span class="s">"0.2.6"</span><span class="p">]]</span>
+
+  <span class="ss">:plugins</span> <span class="p">[[</span><span class="nv">lein-cljsbuild</span> <span class="s">"1.0.5"</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">lein-figwheel</span> <span class="s">"0.2.6"</span><span class="p">]]</span>
+
+  <span class="ss">:hooks</span> <span class="p">[</span><span class="nv">leiningen.cljsbuild</span><span class="p">]</span>
+
+  <span class="ss">:profiles</span> <span class="p">{</span><span class="ss">:dev</span> <span class="p">{</span><span class="ss">:cljsbuild</span>
+                   <span class="p">{</span><span class="ss">:builds</span> <span class="p">{</span><span class="ss">:client</span> <span class="p">{</span><span class="ss">:source-paths</span> <span class="p">[</span><span class="s">"devsrc"</span><span class="p">]</span>
+                                      <span class="ss">:compiler</span>     <span class="p">{</span><span class="ss">:main</span> <span class="nv">simpleexample.dev</span>
+                                                     <span class="ss">:asset-path</span> <span class="s">"js"</span>
+                                                     <span class="ss">:optimizations</span> <span class="ss">:none</span>
+                                                     <span class="ss">:source-map</span> <span class="nv">true</span>
+                                                     <span class="ss">:source-map-timestamp</span> <span class="nv">true</span><span class="p">}}}}}</span>
+
+             <span class="ss">:prod</span> <span class="p">{</span><span class="ss">:cljsbuild</span>
+                    <span class="p">{</span><span class="ss">:builds</span> <span class="p">{</span><span class="ss">:client</span> <span class="p">{</span><span class="ss">:compiler</span>    <span class="p">{</span><span class="ss">:optimizations</span> <span class="ss">:advanced</span>
+                                                     <span class="ss">:elide-asserts</span> <span class="nv">true</span>
+                                                     <span class="ss">:pretty-print</span> <span class="nv">false</span><span class="p">}}}}}}</span>
+
+  <span class="ss">:figwheel</span> <span class="p">{</span><span class="ss">:repl</span> <span class="nv">false</span><span class="p">}</span>
+
+  <span class="ss">:clean-targets</span> <span class="o">^</span><span class="p">{</span><span class="ss">:protect</span> <span class="nv">false</span><span class="p">}</span> <span class="p">[</span><span class="s">"resources/public/js"</span><span class="p">]</span>
+
+  <span class="ss">:cljsbuild</span> <span class="p">{</span><span class="ss">:builds</span> <span class="p">{</span><span class="ss">:client</span> <span class="p">{</span><span class="ss">:source-paths</span> <span class="p">[</span><span class="s">"src"</span><span class="p">]</span>
+                                <span class="ss">:compiler</span>     <span class="p">{</span><span class="ss">:output-dir</span> <span class="s">"resources/public/js"</span>
+                                               <span class="ss">:output-to</span>  <span class="s">"resources/public/js/client.js"</span><span class="p">}}}})</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

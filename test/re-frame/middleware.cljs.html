@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: test/re-frame/middleware.cljs</title>
+  <link rel="stylesheet" href="../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="middleware.cljs.html/../../../index.html">.</a> / <a href="middleware.cljs.html/../../index.html">test</a> / <a href="middleware.cljs.html/../index.html">re-frame</a> / middleware.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_re-frame.test.middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">re-frame.test.middleware</span>
+  <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">cemerick.cljs.test</span> <span class="ss">:refer</span> <span class="p">(</span><span class="nf">is</span> <span class="nv">deftest</span><span class="p">)])</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">cemerick.cljs.test</span> <span class="ss">:as</span> <span class="nv">t</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv">atom</span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.middleware</span> <span class="ss">:as</span> <span class="nv">middleware</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">enable-console-print!</span><span class="p">)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_pure" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">deftest</span> <span class="nv">pure</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">db</span> <span class="p">(</span><span class="nf">atom</span> <span class="p">{</span><span class="ss">:a</span> <span class="nv">true</span><span class="p">})</span>
+        <span class="nv">handler</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="p">[</span><span class="nv">_</span> <span class="nb">key </span><span class="nv">value</span><span class="p">]]</span>
+                  <span class="p">(</span><span class="nb">assoc </span><span class="nv">db</span> <span class="nb">key </span><span class="nv">value</span><span class="p">))]</span>
+    <span class="p">((</span><span class="nf">middleware/pure</span> <span class="nv">handler</span><span class="p">)</span> <span class="nv">db</span> <span class="p">[</span><span class="nv">nil</span> <span class="ss">:a</span> <span class="nv">false</span><span class="p">])</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="ss">:a</span> <span class="o">@</span><span class="nv">db</span><span class="p">)</span> <span class="nv">false</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_trim-v" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">deftest</span> <span class="nv">trim-v</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">handler</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="nv">vect</span><span class="p">]</span> <span class="nv">vect</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">handler</span> <span class="nv">nil</span> <span class="p">[</span><span class="ss">:a</span> <span class="ss">:b</span> <span class="ss">:c</span><span class="p">])</span> 
+           <span class="p">[</span><span class="ss">:a</span> <span class="ss">:b</span> <span class="ss">:c</span><span class="p">]))</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="p">((</span><span class="nf">middleware/trim-v</span> <span class="nv">handler</span><span class="p">)</span> <span class="nv">nil</span> <span class="p">[</span><span class="ss">:a</span> <span class="ss">:b</span> <span class="ss">:c</span><span class="p">])</span> 
+           <span class="p">[</span><span class="ss">:b</span> <span class="ss">:c</span><span class="p">]))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_path" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">deftest</span> <span class="nv">path</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">db</span>  <span class="p">{</span><span class="ss">:a</span> <span class="nv">true</span><span class="p">}</span>
+        <span class="nv">handler</span> <span class="p">(</span><span class="k">fn </span>
+                  <span class="p">[</span><span class="nv">a</span> <span class="p">[</span><span class="nv">_</span><span class="p">]]</span> 
+                  <span class="p">(</span><span class="nb">not </span><span class="nv">a</span><span class="p">))]</span> 
+    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">new-db</span> <span class="p">(((</span><span class="nf">middleware/path</span> <span class="p">[</span><span class="ss">:a</span><span class="p">])</span>
+                   <span class="nv">handler</span><span class="p">)</span> <span class="nv">db</span> <span class="p">[</span><span class="nv">nil</span><span class="p">])]</span>
+      <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="ss">:a</span> <span class="nv">new-db</span><span class="p">)</span> 
+             <span class="nv">false</span><span class="p">)))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_on-changes" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="nf">deftest</span> <span class="nv">on-changes</span>
+         <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">set-a</span>     <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">db</span> <span class="nv">v</span><span class="p">]</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">db</span> <span class="ss">:a</span> <span class="nv">v</span><span class="p">))</span>      <span class="c1">;; handler</span>
+               <span class="nv">mid-ware</span>  <span class="p">(</span><span class="nf">middleware/on-changes</span> <span class="nb">+ </span><span class="p">[</span><span class="ss">:c</span><span class="p">]</span> <span class="p">[</span><span class="ss">:a</span><span class="p">]</span> <span class="p">[</span><span class="ss">:b</span><span class="p">])</span>   <span class="c1">;; middleware</span>
+               <span class="nv">wrapped</span>   <span class="p">(</span><span class="nf">mid-ware</span> <span class="nv">set-a</span><span class="p">)]</span>                <span class="c1">;; wrapped middleware</span>
+             <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">wrapped</span> <span class="p">{</span><span class="ss">:a</span> <span class="mi">0</span> <span class="ss">:b</span> <span class="mi">2</span><span class="p">}</span> <span class="mi">0</span><span class="p">)</span>               <span class="c1">;; no change in 'a'</span>
+                    <span class="p">{</span><span class="ss">:a</span> <span class="mi">0</span> <span class="ss">:b</span> <span class="mi">2</span><span class="p">}))</span>
+             <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">wrapped</span> <span class="p">{</span><span class="ss">:a</span> <span class="mi">4</span> <span class="ss">:b</span> <span class="mi">2</span><span class="p">}</span> <span class="mi">0</span><span class="p">)</span>               <span class="c1">;; 'a' changed to 0</span>
+                    <span class="p">{</span><span class="ss">:c</span> <span class="mi">2</span> <span class="ss">:a</span> <span class="mi">0</span> <span class="ss">:b</span> <span class="mi">2</span><span class="p">}))))</span>                  <span class="c1">;; 'c' is a + b</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>re-frame 0.4.1: examples/todomvc/src/todomvc/handlers.cljs</title>
+  <link rel="stylesheet" href="../../../../pyccoon.css">
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}
+  });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div id='container' >
+  <div id="footer">
+    <span id="project-name">
+        <a class="btn" href="../../../../index.html">re-frame 0.4.1</a>
+    </span>
+    <a class="btn" class="source source-1" href="#top">Back to top</a>
+    <div class="generation-time">
+        Generated at
+        <code>2015-07-06 19:27</code>
+        by a diligent
+        <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
+            <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
+    </div>
+  </div>
+  <a id="top"></a>
+  <div class='section'>
+    <div class='docs nav'>
+      <nav id="breadcrumbs">/ <a href="handlers.cljs.html/../../../../../index.html">.</a> / <a href="handlers.cljs.html/../../../../index.html">examples</a> / <a href="handlers.cljs.html/../../../index.html">todomvc</a> / <a href="handlers.cljs.html/../../index.html">src</a> / <a href="handlers.cljs.html/../index.html">todomvc</a> / handlers.cljs</nav>
+      <ul id="children"></ul>
+    </div>
+  </div>
+  <div id="everything" class='clearall'>
+    <div id="background"></div>
+    <div class='section'>
+    <a id="section-0" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-0'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_todomvc.handlers" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_todomvc.handlers">todomvc.handlers</a></span>
+  <span class="p">(</span><span class="ss">:require</span>
+    <span class="p">[</span><span class="nv">todomvc.db</span>    <span class="ss">:refer</span> <span class="p">[</span><span class="nv">default-value</span> <span class="nv">ls-&gt;todos</span> <span class="nv">todos-&gt;ls!</span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span> <span class="nb"><a class="hidden" href="/src/re_frame/core.cljs.html#_path">path </a></span><span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_trim-v">trim-v</a></span> <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_after">after</a></span><span class="p">]]))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-1" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-1'>#</a>
+          </div>
+          <p>-- Middleware --------------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-2" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-2'>#</a>
+          </div>
+          <p>middleware for any handler that manipulates todos</p>
+        </div>
+        <div class='code'>
+          <a id="_->ls" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_-&gt;ls">-&gt;ls</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_after">after</a></span> <span class="nv">todos-&gt;ls!</span><span class="p">))</span>    <span class="c1">;; middleware to store todos into local storage</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-3" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-3'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <a id="_todo-middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span> <span class="p">[(</span><span class="nb"><a class="hidden" href="/src/re_frame/core.cljs.html#_path">path </a></span><span class="ss">:todos</span><span class="p">)</span>   <span class="c1">;; 1st param to handler will be value from this path</span>
+                      <span class="nv"><a class="hidden" href="#_-&gt;ls">-&gt;ls</a></span>            <span class="c1">;; write to localstore each time</span>
+                      <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_trim-v">trim-v</a></span><span class="p">])</span>        <span class="c1">;; remove event id from event vec</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-4" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-4'>#</a>
+          </div>
+          <p>-- Helpers -----------------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          <a id="_next-id" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_next-id">next-id</a></span>
+  <span class="p">[</span><span class="nv">todos</span><span class="p">]</span>
+  <span class="p">((</span><span class="nf">fnil</span> <span class="nb">inc </span><span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nb">last </span><span class="p">(</span><span class="nb">keys </span><span class="nv">todos</span><span class="p">))))</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-5" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-5'>#</a>
+          </div>
+          <p>-- Handlers ----------------------------------------------------------------</p>
+        </div>
+        <div class='code'>
+          
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-6" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-6'>#</a>
+          </div>
+          <dl>
+<dt>usage</dt>
+<dd>(dispatch [:initialise-db])</dd>
+</dl>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; On app startup, ceate initial state</span>
+  <span class="ss">:initialise-db</span>                  <span class="c1">;; event id being handled</span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>                       <span class="c1">;; the handler being registered</span>
+    <span class="p">(</span><span class="nb">merge </span><span class="nv">default-value</span> <span class="p">(</span><span class="nf">ls-&gt;todos</span><span class="p">))))</span>  <span class="c1">;; all hail the new state</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; this handler changes the footer filter</span>
+  <span class="ss">:set-showing</span>                    <span class="c1">;; event-id</span>
+  <span class="p">[(</span><span class="nb"><a class="hidden" href="/src/re_frame/core.cljs.html#_path">path </a></span><span class="ss">:showing</span><span class="p">)</span> <span class="nv"><a class="hidden" href="/src/re_frame/core.cljs.html#_trim-v">trim-v</a></span><span class="p">]</span>        <span class="c1">;; middleware  (wraps the handler)</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-7" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-7'>#</a>
+          </div>
+          <p>Because of the path middleware above, the 1st parameter to
+the handler below won't be the entire 'db', and instead will
+be the value at a certain path within db.
+Also, the use of the 'trim-v' middleware means we can omit
+the leading underscore from the 2nd parameter (event vector).</p>
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre>  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">old-kw</span> <span class="p">[</span><span class="nv">new-filter-kw</span><span class="p">]]</span>    <span class="c1">;; handler</span>
+    <span class="nv">new-filter-kw</span><span class="p">))</span>               <span class="c1">;; return new state for the path</span></pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-8" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-8'>#</a>
+          </div>
+          
+        </div>
+        <div class='code'>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                  <span class="c1">;; given the text, create a new todo</span>
+  <span class="ss">:add-todo</span>
+  <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">text</span><span class="p">]]</span>               <span class="c1">;; "path" middlware means we are given :todo</span>
+    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">id</span>  <span class="p">(</span><span class="nf"><a class="hidden" href="#_next-id">next-id</a></span> <span class="nv">todos</span><span class="p">)]</span>
+      <span class="p">(</span><span class="nb">assoc </span><span class="nv">todos</span> <span class="nv">id</span> <span class="p">{</span><span class="ss">:id</span> <span class="nv">id</span> <span class="ss">:title</span> <span class="nv">text</span> <span class="ss">:done</span> <span class="nv">false</span><span class="p">}))))</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:toggle-done</span>
+  <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span><span class="p">]]</span>
+    <span class="p">(</span><span class="nf">update-in</span> <span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span> <span class="ss">:done</span><span class="p">]</span> <span class="nv">not</span><span class="p">)))</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:save</span>
+  <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span> <span class="nv">title</span><span class="p">]]</span>
+    <span class="p">(</span><span class="nf">assoc-in</span> <span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span> <span class="ss">:title</span><span class="p">]</span> <span class="nv">title</span><span class="p">)))</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:delete-todo</span>
+  <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span><span class="p">]]</span>
+    <span class="p">(</span><span class="nb">dissoc </span><span class="nv">todos</span> <span class="nv">id</span><span class="p">)))</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:clear-completed</span>
+  <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="nv">_</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nb">vals </span><span class="nv">todos</span><span class="p">)</span>                <span class="c1">;; remove all todos where :done is true</span>
+         <span class="p">(</span><span class="nb">filter </span><span class="ss">:done</span><span class="p">)</span>
+         <span class="p">(</span><span class="nb">map </span><span class="ss">:id</span><span class="p">)</span>
+         <span class="p">(</span><span class="nb">reduce dissoc </span><span class="nv">todos</span><span class="p">))))</span>    <span class="c1">;; returns the new version of todos</span>
+
+
+<span class="p">(</span><span class="nf"><a class="hidden" href="/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+  <span class="ss">:complete-all-toggle</span>
+  <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
+  <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span><span class="p">]</span>
+    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">new-done</span> <span class="p">(</span><span class="nb">not-every? </span><span class="ss">:done</span> <span class="p">(</span><span class="nb">vals </span><span class="nv">todos</span><span class="p">))]</span>   <span class="c1">;; toggle true or false?</span>
+      <span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nf">assoc-in</span> <span class="nv">%1</span> <span class="p">[</span><span class="nv">%2</span> <span class="ss">:done</span><span class="p">]</span> <span class="nv">new-done</span><span class="p">)</span>
+              <span class="nv">todos</span>
+              <span class="p">(</span><span class="nb">keys </span><span class="nv">todos</span><span class="p">)))))</span>
+
+</pre></div>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+    <div class='section'>
+    <a id="section-endpage" class="section-anchor"></a>
+    <section>
+        <div class='docs'>
+          <div class='octowrap'>
+            <a class='octothorpe' href='#section-'>#</a>
+          </div>
+          <p>
+            <div class="endpage"></div>
+          </p>
+        </div>
+        <div class='code'>
+        </div>
+        <div class='clearall'></div>
+    </section>
+    </div>
+  </div>
+</body>
