@@ -31,7 +31,7 @@
     </div>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 20:04</code>
+        <code>2015-07-06 22:18</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -57,8 +57,8 @@
         </div>
         <div class='code'>
           <a id="_re-frame.handlers" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.handlers">re-frame.handlers</a></span>
-  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">re-frame.db</span>         <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
-            <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span><span class="p">]]))</span></pre></div>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">re-frame.db</span>         <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span> <span class="nv"><a class="hidden" href="utils.cljs.html#_error">error</a></span><span class="p">]]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -98,7 +98,7 @@
             <span class="p">[</span><span class="nv">v</span><span class="p">]</span>
             <span class="p">(</span><span class="nb">remove nil? </span><span class="p">(</span><span class="nb">map </span><span class="nv">name-of-factory</span> <span class="nv">v</span><span class="p">)))]</span>
     <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nb">name </span><span class="p">(</span><span class="nf">factory-names-in</span> <span class="nv">v</span><span class="p">)]</span>
-      <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \""</span> <span class="nb">name </span><span class="s">"\" used incorrectly. Must be used like this \"("</span> <span class="nb">name </span><span class="s">" ...)\", whereas you just used \""</span> <span class="nb">name </span><span class="s">"\"."</span><span class="p">))))</span></pre></div>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: \""</span> <span class="nb">name </span><span class="s">"\" used incorrectly. Must be used like this \"("</span> <span class="nb">name </span><span class="s">" ...)\", whereas you just used \""</span> <span class="nb">name </span><span class="s">"\"."</span><span class="p">))))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -219,7 +219,7 @@
           
         </div>
         <div class='code'>
-          <div class="highlight"><pre>    <span class="ss">:else</span>         <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: comp-middleware expects a vector, got: "</span> <span class="nv">v</span><span class="p">)))</span></pre></div>
+          <div class="highlight"><pre>    <span class="ss">:else</span>         <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: comp-middleware expects a vector, got: "</span> <span class="nv">v</span><span class="p">)))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -319,7 +319,7 @@ generally be used.</p>
           <p>Allow it, but warn.</p>
         </div>
         <div class='code'>
-          <div class="highlight"><pre>      <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: overwriting an event-handler for: "</span> <span class="nv">event-id</span><span class="p">))</span></pre></div>
+          <div class="highlight"><pre>      <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: overwriting an event-handler for: "</span> <span class="nv">event-id</span><span class="p">))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -450,14 +450,14 @@ To write a pure handler, use the <code>pure</code> middleware when registering t
           <a id="_handle" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_handle">handle</a></span>
 
   <span class="p">[</span><span class="nv">event-v</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">event-id</span>    <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv">event-v</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">event-id</span>    <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_first-in-vector">first-in-vector</a></span> <span class="nv">event-v</span><span class="p">)</span>
         <span class="nv">handler-fn</span>  <span class="p">(</span><span class="nf"><a class="hidden" href="#_lookup-handler">lookup-handler</a></span> <span class="nv">event-id</span><span class="p">)]</span>
     <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">handler-fn</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: no event handler registered for: \""</span> <span class="nv">event-id</span> <span class="s">"\". Ignoring."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: no event handler registered for: \""</span> <span class="nv">event-id</span> <span class="s">"\". Ignoring."</span><span class="p">)</span>
       <span class="p">(</span><span class="k">if </span> <span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>
-        <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: while handling \""</span>  <span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>  <span class="s">"\"  dispatch-sync was called for \""</span> <span class="nv">event-v</span> <span class="s">"\". You can't call dispatch-sync in an event handler."</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_error">error</a></span> <span class="s">"re-frame: while handling \""</span>  <span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>  <span class="s">"\"  dispatch-sync was called for \""</span> <span class="nv">event-v</span> <span class="s">"\". You can't call dispatch-sync in an event handler."</span><span class="p">)</span>
         <span class="p">(</span><span class="nb">binding </span><span class="p">[</span><span class="nv"><a class="hidden" href="#_*handling*">*handling*</a></span>  <span class="nv">event-v</span><span class="p">]</span>
-          <span class="p">(</span><span class="nf">handler-fn</span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv">event-v</span><span class="p">))))))</span>
+          <span class="p">(</span><span class="nf">handler-fn</span> <span class="nv"><a class="hidden" href="db.cljs.html#_app-db">app-db</a></span> <span class="nv">event-v</span><span class="p">))))))</span>
 
 </pre></div>
         </div>

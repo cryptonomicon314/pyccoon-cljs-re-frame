@@ -30,7 +30,7 @@
     </div>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 20:04</code>
+        <code>2015-07-06 22:18</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -55,9 +55,9 @@
           
         </div>
         <div class='code'>
-          <a id="_re-frame.utils" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">re-frame.utils</span>
+          <a id="_re-frame.utils" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_re-frame.utils">re-frame.utils</a></span>
   <span class="p">(</span><span class="ss">:require</span>
-    <span class="p">[</span><span class="nv">clojure.set</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">difference</span><span class="p">]]))</span></pre></div>
+    <span class="p">[</span><span class="nv">clojure.set</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/org.clojure/clojure/latest/clojure.set.html#_difference">difference</a></span><span class="p">]]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -143,14 +143,14 @@ handled by overridding "error"</p>
 'new-loggers' should be a map which looks like default-loggers</p>
         </div>
         <div class='code'>
-          <a id="_set-loggers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">set-loggers!</span>
+          <a id="_set-loggers!" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_set-loggers!">set-loggers!</a></span>
 
   <span class="p">[</span><span class="nv">new-loggers</span><span class="p">]</span>
   <span class="p">(</span><span class="nb">assert </span><span class="p">(</span><span class="nf">empty?</span>
-            <span class="p">(</span><span class="nb">difference </span><span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">keys </span><span class="nv">new-loggers</span><span class="p">))</span>
-                        <span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">keys </span><span class="nv">default-loggers</span><span class="p">))))</span>
-          <span class="s">&quot;Unknown keys in new-loggers&quot;</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">swap!</span> <span class="nv">loggers</span> <span class="nb">merge </span><span class="nv">new-loggers</span><span class="p">))</span></pre></div>
+            <span class="p">(</span><span class="nb"><a class="hidden" href="https://crossclj.info/doc/org.clojure/clojure/latest/clojure.set.html#_difference">difference </a></span><span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">keys </span><span class="nv">new-loggers</span><span class="p">))</span>
+                        <span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">keys </span><span class="nv"><a class="hidden" href="#_default-loggers">default-loggers</a></span><span class="p">))))</span>
+          <span class="s">"Unknown keys in new-loggers"</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">swap!</span> <span class="nv"><a class="hidden" href="#_loggers">loggers</a></span> <span class="nb">merge </span><span class="nv">new-loggers</span><span class="p">))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>

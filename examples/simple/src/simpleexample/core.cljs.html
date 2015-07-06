@@ -20,7 +20,7 @@
     <a class="btn" class="source source-1" href="#top">Back to top</a>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 20:04</code>
+        <code>2015-07-06 22:18</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -48,12 +48,12 @@
           <a id="_simpleexample.core" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_simpleexample.core">simpleexample.core</a></span>
   <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">reagent.ratom</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span><span class="p">]])</span>  
   <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">reagent.core</span> <span class="ss">:as</span> <span class="nv">reagent</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_atom">atom</a></span><span class="p">]]</span>
-            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
-                                   <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_path">path</a></span>
-                                   <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
-                                   <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span>
-                                   <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span>
-                                   <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span><span class="p">]]))</span></pre></div>
+            <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+                                   <span class="nv"><a class="hidden" href="../../src/re_frame/core.cljs.html#_path">path</a></span>
+                                   <span class="nv"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
+                                   <span class="nv"><a class="hidden" href="../../src/re_frame/core.cljs.html#_dispatch">dispatch</a></span>
+                                   <span class="nv"><a class="hidden" href="../../src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span>
+                                   <span class="nv"><a class="hidden" href="../../src/re_frame/core.cljs.html#_subscribe">subscribe</a></span><span class="p">]]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -69,7 +69,7 @@
         </div>
         <div class='code'>
           <a id="_time-updater" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defonce </span><span class="nv"><a class="hidden" href="#_time-updater">time-updater</a></span> <span class="p">(</span><span class="nf">js/setInterval</span>
-                        <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:timer</span> <span class="p">(</span><span class="nf">js/Date.</span><span class="p">)])</span> <span class="mi">1000</span><span class="p">))</span></pre></div>
+                        <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_dispatch">dispatch</a></span> <span class="p">[</span><span class="ss">:timer</span> <span class="p">(</span><span class="nf">js/Date.</span><span class="p">)])</span> <span class="mi">1000</span><span class="p">))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -101,22 +101,22 @@
           <p>-- Event Handlers ----------------------------------------------------------</p>
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; setup initial state</span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; setup initial state</span>
   <span class="ss">:initialize</span>                     <span class="c1">;; usage:  (submit [:initialize])</span>
   <span class="p">(</span><span class="k">fn </span>
     <span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
     <span class="p">(</span><span class="nb">merge </span><span class="nv">db</span> <span class="nv"><a class="hidden" href="#_initial-state">initial-state</a></span><span class="p">)))</span>    <span class="c1">;; what it returns becomes the new state</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:time-color</span>                     <span class="c1">;; usage:  (submit [:time-color 34562])</span>
-  <span class="p">(</span><span class="nb"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_path">path </a></span><span class="p">[</span><span class="ss">:time-color</span><span class="p">])</span>            <span class="c1">;; this is middleware</span>
+  <span class="p">(</span><span class="nb"><a class="hidden" href="../../src/re_frame/core.cljs.html#_path">path </a></span><span class="p">[</span><span class="ss">:time-color</span><span class="p">])</span>            <span class="c1">;; this is middleware</span>
   <span class="p">(</span><span class="nf">fn</span>
     <span class="p">[</span><span class="nv">time-color</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">value</span><span class="p">]]</span>        <span class="c1">;; path middleware adjusts the first parameter</span>
     <span class="nv">value</span><span class="p">))</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:timer</span>
   <span class="p">(</span><span class="nf">fn</span></pre></div>
         </div>
@@ -150,14 +150,14 @@ new value</p>
           <p>-- Subscription Handlers ---------------------------------------------------</p>
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
   <span class="ss">:timer</span>
   <span class="p">(</span><span class="k">fn </span>
     <span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>                       <span class="c1">;; db is the app-db atom</span>
     <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span> <span class="p">(</span><span class="ss">:timer</span> <span class="o">@</span><span class="nv">db</span><span class="p">))))</span>    <span class="c1">;; wrap the compitation in a reaction</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_register-sub">register-sub</a></span>
   <span class="ss">:time-color</span>
   <span class="p">(</span><span class="k">fn </span>
     <span class="p">[</span><span class="nv">db</span> <span class="nv">_</span><span class="p">]</span>
@@ -193,16 +193,16 @@ new value</p>
           
         </div>
         <div class='code'>
-          <a id="_clock" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">clock</span>
+          <a id="_clock" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_clock">clock</a></span>
   <span class="p">[]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-color</span> <span class="p">(</span><span class="nf">subscribe</span> <span class="p">[</span><span class="ss">:time-color</span><span class="p">])</span>
-        <span class="nv">timer</span> <span class="p">(</span><span class="nf">subscribe</span> <span class="p">[</span><span class="ss">:timer</span><span class="p">])]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-color</span> <span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:time-color</span><span class="p">])</span>
+        <span class="nv">timer</span> <span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:timer</span><span class="p">])]</span>
 
     <span class="p">(</span><span class="k">fn </span><span class="nv">clock-render</span>
         <span class="p">[]</span>
         <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-str</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="o">@</span><span class="nv">timer</span>
                            <span class="nv">.toTimeString</span>
-                           <span class="p">(</span><span class="nf">clojure.string/split</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+                           <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/doc/org.clojure/clojure/latest/clojure.string.html#_split">clojure.string/split</a></span> <span class="s">" "</span><span class="p">)</span>
                            <span class="nv">first</span><span class="p">)</span>
               <span class="nv">style</span> <span class="p">{</span><span class="ss">:style</span> <span class="p">{</span><span class="ss">:color</span> <span class="o">@</span><span class="nv">time-color</span><span class="p">}}]</span>
              <span class="p">[</span><span class="ss">:div.example-clock</span> <span class="nv">style</span> <span class="nv">time-str</span><span class="p">]))))</span></pre></div>
@@ -222,7 +222,7 @@ new value</p>
         <div class='code'>
           <a id="_color-input" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv"><a class="hidden" href="#_color-input">color-input</a></span>
   <span class="p">[]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-color</span> <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:time-color</span><span class="p">])]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">time-color</span> <span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_subscribe">subscribe</a></span> <span class="p">[</span><span class="ss">:time-color</span><span class="p">])]</span>
 
     <span class="p">(</span><span class="k">fn </span><span class="nv">color-input-render</span>
         <span class="p">[]</span>
@@ -243,7 +243,7 @@ new value</p>
         <div class='code'>
           <div class="highlight"><pre>         <span class="p">[</span><span class="ss">:input</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">"text"</span>
                   <span class="ss">:value</span> <span class="o">@</span><span class="nv">time-color</span>
-                  <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch">dispatch</a></span>
+                  <span class="ss">:on-change</span> <span class="o">#</span><span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_dispatch">dispatch</a></span>
                                <span class="p">[</span><span class="ss">:time-color</span> <span class="p">(</span><span class="nb">-&gt; </span><span class="nv">%</span> <span class="nv">.-target</span> <span class="nv">.-value</span><span class="p">)])}]])))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -281,7 +281,7 @@ new value</p>
         <div class='code'>
           <a id="_run" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="o">^</span><span class="ss">:export</span> <span class="nv"><a class="hidden" href="#_run">run</a></span>
   <span class="p">[]</span>
-  <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span> <span class="p">[</span><span class="ss">:initialize</span><span class="p">])</span>
+  <span class="p">(</span><span class="nf"><a class="hidden" href="../../src/re_frame/core.cljs.html#_dispatch-sync">dispatch-sync</a></span> <span class="p">[</span><span class="ss">:initialize</span><span class="p">])</span>
   <span class="p">(</span><span class="nf"><a class="hidden" href="https://crossclj.info/ns/reagent/latest/reagent.core.cljs.html#_render">reagent/render</a></span> <span class="p">[</span><span class="nv"><a class="hidden" href="#_simple-example">simple-example</a></span><span class="p">]</span>
                   <span class="p">(</span><span class="nf">js/document.getElementById</span> <span class="s">"app"</span><span class="p">)))</span>
 

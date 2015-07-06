@@ -20,7 +20,7 @@
     <a class="btn" class="source source-1" href="#top">Back to top</a>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 20:04</code>
+        <code>2015-07-06 22:18</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -48,7 +48,7 @@
           <a id="_todomvc.handlers" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv"><a class="hidden" href="#_todomvc.handlers">todomvc.handlers</a></span>
   <span class="p">(</span><span class="ss">:require</span>
     <span class="p">[</span><span class="nv">todomvc.db</span>    <span class="ss">:refer</span> <span class="p">[</span><span class="nv">default-value</span> <span class="nv">ls-&gt;todos</span> <span class="nv">todos-&gt;ls!</span><span class="p">]]</span>
-    <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span> <span class="nb"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_path">path </a></span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_trim-v">trim-v</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_after">after</a></span><span class="p">]]))</span></pre></div>
+    <span class="p">[</span><span class="nv">re-frame.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span> <span class="nb"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_path">path </a></span><span class="nv"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_trim-v">trim-v</a></span> <span class="nv"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_after">after</a></span><span class="p">]]))</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -78,7 +78,7 @@
           <p>middleware for any handler that manipulates todos</p>
         </div>
         <div class='code'>
-          <a id="_->ls" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_-&gt;ls">-&gt;ls</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_after">after</a></span> <span class="nv">todos-&gt;ls!</span><span class="p">))</span>    <span class="c1">;; middleware to store todos into local storage</span></pre></div>
+          <a id="_->ls" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_-&gt;ls">-&gt;ls</a></span> <span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_after">after</a></span> <span class="nv">todos-&gt;ls!</span><span class="p">))</span>    <span class="c1">;; middleware to store todos into local storage</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -93,9 +93,9 @@
           
         </div>
         <div class='code'>
-          <a id="_todo-middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span> <span class="p">[(</span><span class="nb"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_path">path </a></span><span class="ss">:todos</span><span class="p">)</span>   <span class="c1">;; 1st param to handler will be value from this path</span>
+          <a id="_todo-middleware" class="section-anchor"></a><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span> <span class="p">[(</span><span class="nb"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_path">path </a></span><span class="ss">:todos</span><span class="p">)</span>   <span class="c1">;; 1st param to handler will be value from this path</span>
                       <span class="nv"><a class="hidden" href="#_-&gt;ls">-&gt;ls</a></span>            <span class="c1">;; write to localstore each time</span>
-                      <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_trim-v">trim-v</a></span><span class="p">])</span>        <span class="c1">;; remove event id from event vec</span></pre></div>
+                      <span class="nv"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_trim-v">trim-v</a></span><span class="p">])</span>        <span class="c1">;; remove event id from event vec</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -145,15 +145,15 @@
 </dl>
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; On app startup, ceate initial state</span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; On app startup, ceate initial state</span>
   <span class="ss">:initialise-db</span>                  <span class="c1">;; event id being handled</span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>                       <span class="c1">;; the handler being registered</span>
     <span class="p">(</span><span class="nb">merge </span><span class="nv">default-value</span> <span class="p">(</span><span class="nf">ls-&gt;todos</span><span class="p">))))</span>  <span class="c1">;; all hail the new state</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; this handler changes the footer filter</span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                 <span class="c1">;; this handler changes the footer filter</span>
   <span class="ss">:set-showing</span>                    <span class="c1">;; event-id</span>
-  <span class="p">[(</span><span class="nb"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_path">path </a></span><span class="ss">:showing</span><span class="p">)</span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_trim-v">trim-v</a></span><span class="p">]</span>        <span class="c1">;; middleware  (wraps the handler)</span></pre></div>
+  <span class="p">[(</span><span class="nb"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_path">path </a></span><span class="ss">:showing</span><span class="p">)</span> <span class="nv"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_trim-v">trim-v</a></span><span class="p">]</span>        <span class="c1">;; middleware  (wraps the handler)</span></pre></div>
         </div>
         <div class='clearall'></div>
     </section>
@@ -188,7 +188,7 @@ the leading underscore from the 2nd parameter (event vector).</p>
           
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                  <span class="c1">;; given the text, create a new todo</span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>                  <span class="c1">;; given the text, create a new todo</span>
   <span class="ss">:add-todo</span>
   <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">text</span><span class="p">]]</span>               <span class="c1">;; "path" middlware means we are given :todo</span>
@@ -196,28 +196,28 @@ the leading underscore from the 2nd parameter (event vector).</p>
       <span class="p">(</span><span class="nb">assoc </span><span class="nv">todos</span> <span class="nv">id</span> <span class="p">{</span><span class="ss">:id</span> <span class="nv">id</span> <span class="ss">:title</span> <span class="nv">text</span> <span class="ss">:done</span> <span class="nv">false</span><span class="p">}))))</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:toggle-done</span>
   <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span><span class="p">]]</span>
     <span class="p">(</span><span class="nf">update-in</span> <span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span> <span class="ss">:done</span><span class="p">]</span> <span class="nv">not</span><span class="p">)))</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:save</span>
   <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span> <span class="nv">title</span><span class="p">]]</span>
     <span class="p">(</span><span class="nf">assoc-in</span> <span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span> <span class="ss">:title</span><span class="p">]</span> <span class="nv">title</span><span class="p">)))</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:delete-todo</span>
   <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="p">[</span><span class="nv">id</span><span class="p">]]</span>
     <span class="p">(</span><span class="nb">dissoc </span><span class="nv">todos</span> <span class="nv">id</span><span class="p">)))</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:clear-completed</span>
   <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span> <span class="nv">_</span><span class="p">]</span>
@@ -227,7 +227,7 @@ the leading underscore from the 2nd parameter (event vector).</p>
          <span class="p">(</span><span class="nb">reduce dissoc </span><span class="nv">todos</span><span class="p">))))</span>    <span class="c1">;; returns the new version of todos</span>
 
 
-<span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
+<span class="p">(</span><span class="nf"><a class="hidden" href="../../../../src/re_frame/core.cljs.html#_register-handler">register-handler</a></span>
   <span class="ss">:complete-all-toggle</span>
   <span class="nv"><a class="hidden" href="#_todo-middleware">todo-middleware</a></span>
   <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">todos</span><span class="p">]</span>

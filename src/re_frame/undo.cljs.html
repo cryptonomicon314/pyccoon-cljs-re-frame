@@ -32,7 +32,7 @@
     </div>
     <div class="generation-time">
         Generated at
-        <code>2015-07-06 20:04</code>
+        <code>2015-07-06 22:18</code>
         by a diligent
         <a target="_blank" href="http://ckald.github.io/pyccoon/" title="Pyccoon: side-to-side documentation generator">
             <img id="pyccoon-icon" src="../../pyccoon_icon.svg" alt="Pyccoon: side-to-side documentation generator" />pyccoon</a>
@@ -61,8 +61,8 @@
   <span class="p">(</span><span class="ss">:require-macros</span> <span class="p">[</span><span class="nv">reagent.ratom</span>  <span class="ss">:refer</span> <span class="p">[</span><span class="nv"><a class="hidden" href="https://crossclj.info/doc/reagent/latest/reagent.ratom.cljs.html#_reaction">reaction</a></span><span class="p">]])</span>
   <span class="p">(</span><span class="ss">:require</span>
     <span class="p">[</span><span class="nv">reagent.core</span>        <span class="ss">:as</span>     <span class="nv">reagent</span><span class="p">]</span>
-    <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span>  <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span><span class="p">]]</span>
-    <span class="p">[</span><span class="nv">re-frame.db</span>         <span class="ss">:refer</span>  <span class="p">[</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.utils</span>      <span class="ss">:refer</span>  <span class="p">[</span><span class="nv"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span><span class="p">]]</span>
+    <span class="p">[</span><span class="nv">re-frame.db</span>         <span class="ss">:refer</span>  <span class="p">[</span><span class="nv"><a class="hidden" href="db.cljs.html#_app-db">app-db</a></span><span class="p">]]</span>
     <span class="p">[</span><span class="nv">re-frame.handlers</span>   <span class="ss">:as</span>     <span class="nv">handlers</span><span class="p">]</span>
     <span class="p">[</span><span class="nv">re-frame.subs</span>       <span class="ss">:as</span>     <span class="nv">subs</span><span class="p">]))</span></pre></div>
         </div>
@@ -271,7 +271,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
   <span class="p">(</span><span class="nf"><a class="hidden" href="#_clear-redos!">clear-redos!</a></span><span class="p">)</span>
   <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">take</span>
                            <span class="o">@</span><span class="nv"><a class="hidden" href="#_max-undos">max-undos</a></span>
-                           <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="o">@</span><span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span><span class="p">))))</span>
+                           <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="o">@</span><span class="nv"><a class="hidden" href="db.cljs.html#_app-db">app-db</a></span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">reset!</span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">take</span>
                                    <span class="o">@</span><span class="nv"><a class="hidden" href="#_max-undos">max-undos</a></span>
                                    <span class="p">(</span><span class="nb">conj </span><span class="o">@</span><span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="o">@</span><span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span><span class="p">))))</span>
@@ -361,7 +361,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
           
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="subs.cljs.html#_register">subs/register</a></span>
   <span class="ss">:undos?</span>
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
         </div>
@@ -394,7 +394,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
           
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="subs.cljs.html#_register">subs/register</a></span>
   <span class="ss">:redos?</span>
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
         </div>
@@ -427,7 +427,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
           
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="subs.cljs.html#_register">subs/register</a></span>
   <span class="ss">:undo-explanations</span>
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
         </div>
@@ -460,7 +460,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
           
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/subs.cljs.html#_register">subs/register</a></span>
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="subs.cljs.html#_register">subs/register</a></span>
   <span class="ss">:redo-explanations</span>
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span></pre></div>
         </div>
@@ -533,7 +533,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
 
   <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
   <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nb">pos? </span><span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_undos?">undos?</a></span><span class="p">))</span>
-    <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo">undo</a></span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo">undo</a></span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="nv"><a class="hidden" href="db.cljs.html#_app-db">app-db</a></span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)</span>
     <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo">undo</a></span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span><span class="p">)</span>
     <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nb">dec </span><span class="nv">n</span><span class="p">))))</span></pre></div>
         </div>
@@ -555,12 +555,12 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
 <p><em>n</em> is optional, defaults to 1</p>
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span>     
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="handlers.cljs.html#_register-base">handlers/register-base</a></span>     
   <span class="ss">:undo</span>                     
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span>
     <span class="p">[</span><span class="nv">_</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">n</span><span class="p">]]</span>
     <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_undos?">undos?</a></span><span class="p">)</span>
-      <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:undo]), but there is nothing to undo."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:undo]), but there is nothing to undo."</span><span class="p">)</span>
       <span class="p">(</span><span class="nf"><a class="hidden" href="#_undo-n">undo-n</a></span> <span class="p">(</span><span class="nb">or </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -601,7 +601,7 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
 
   <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
   <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nb">pos? </span><span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">))</span>
-    <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo">redo</a></span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="nv"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/db.cljs.html#_app-db">app-db</a></span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)</span>
+    <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo">redo</a></span> <span class="nv"><a class="hidden" href="#_undo-list">undo-list</a></span> <span class="nv"><a class="hidden" href="db.cljs.html#_app-db">app-db</a></span> <span class="nv"><a class="hidden" href="#_redo-list">redo-list</a></span><span class="p">)</span>
     <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo">redo</a></span> <span class="nv"><a class="hidden" href="#_undo-explain-list">undo-explain-list</a></span> <span class="nv"><a class="hidden" href="#_app-explain">app-explain</a></span> <span class="nv"><a class="hidden" href="#_redo-explain-list">redo-explain-list</a></span><span class="p">)</span>
     <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nb">dec </span><span class="nv">n</span><span class="p">))))</span></pre></div>
         </div>
@@ -623,12 +623,12 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
 <p>If <em>n</em> absent, defaults to 1</p>
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span>     
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="handlers.cljs.html#_register-base">handlers/register-base</a></span>     
   <span class="ss">:redo</span>                     
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span>               
     <span class="p">[</span><span class="nv">_</span> <span class="p">[</span><span class="nv">_</span> <span class="nv">n</span><span class="p">]]</span>
     <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">)</span>
-      <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:redo]), but there is nothing to redo."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:redo]), but there is nothing to redo."</span><span class="p">)</span>
       <span class="p">(</span><span class="nf"><a class="hidden" href="#_redo-n">redo-n</a></span> <span class="p">(</span><span class="nb">or </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span></pre></div>
         </div>
         <div class='clearall'></div>
@@ -646,12 +646,12 @@ the code kinda falls out when you do. I'm feeling lazy.</p>
 </pre></div>
         </div>
         <div class='code'>
-          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/handlers.cljs.html#_register-base">handlers/register-base</a></span>     
+          <div class="highlight"><pre><span class="p">(</span><span class="nf"><a class="hidden" href="handlers.cljs.html#_register-base">handlers/register-base</a></span>     
   <span class="ss">:purge-redos</span>              
   <span class="p">(</span><span class="k">fn </span><span class="nv">handler</span>
     <span class="p">[</span><span class="nv">_</span> <span class="nv">_</span><span class="p">]</span>
     <span class="p">(</span><span class="nb">if-not </span><span class="p">(</span><span class="nf"><a class="hidden" href="#_redos?">redos?</a></span><span class="p">)</span>
-      <span class="p">(</span><span class="nf"><a class="hidden" href="/pyccoon-cljs-re-frame/src/re_frame/utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:purge-redos]), but there is nothing to redo."</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf"><a class="hidden" href="utils.cljs.html#_warn">warn</a></span> <span class="s">"re-frame: you did a (dispatch [:purge-redos]), but there is nothing to redo."</span><span class="p">)</span>
       <span class="p">(</span><span class="nf"><a class="hidden" href="#_clear-redos!">clear-redos!</a></span><span class="p">))))</span>
 
 </pre></div>
